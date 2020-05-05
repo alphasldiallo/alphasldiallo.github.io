@@ -1,0 +1,2 @@
+I"<p>The Dynamic Time Warping (DTW) algorithm is one of the most used algorithms to find similarities between two time series. Its goal is to find the optimal global alignment between two time series by exploiting temporal distortions between them. DTW algorithm has been first used to match signals in speech recognition. However, it can also be used in time series of two-dimensional space such as spatial time series used to model trajectories. It computes a good similarity between trajectories containing closed parts.</p>
+:ET
