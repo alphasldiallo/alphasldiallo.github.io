@@ -1299,7 +1299,7 @@ a.newer-posts:hover {
   margin-left: 5px;
   color: #263959;
   text-transform: uppercase;
-  border: 1px solid #263959;
+  border: 1px solid #EAF3F5;
 }
 
 .page-footer .page-tag a:hover {
@@ -1360,6 +1360,10 @@ a.newer-posts:hover {
 .tag-list span a:hover {
   text-decoration: underline;
   opacity: .8;
+}
+.menu{
+  text-align: center;
+  display: inline-block;
 }
 
 /* - - - - - - - - - - Media Styles - - - - - - - - - - */
