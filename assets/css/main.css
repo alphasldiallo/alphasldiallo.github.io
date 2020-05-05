@@ -1365,6 +1365,9 @@ a.newer-posts:hover {
   text-align: center;
   display: inline-block;
 }
+.menu ul{
+  list-style-type: none;
+}
 
 /* - - - - - - - - - - Media Styles - - - - - - - - - - */
 /* Medium Devices, Desktops */
