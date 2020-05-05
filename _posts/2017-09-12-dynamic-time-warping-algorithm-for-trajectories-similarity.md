@@ -1,7 +1,7 @@
 ---
 title: Dynamic Time Warping Algorithm for trajectories similarity
 layout: post
-date: '2017-09-12 13:32:20 +0300'
+date: '2020-05-05 16:00:00'
 description: You’ll find this post in your `_posts` directory. Go ahead and edit it
   and re-build the site to see your changes.
 img: trajectories.png
