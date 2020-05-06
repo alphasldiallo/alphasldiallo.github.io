@@ -39,20 +39,28 @@ Requirements:
 
 Let&#39;s set up the tools and explore our dataset:
 
+```python
 import pandas as pd
 
-# **p** and **q** represent our raw trajectories
- p = &quot;../trajectories/20081020134500.plt&quot;
- q = &quot;../trajectories/20081023055305.plt&quot;
+# p and q represent our raw trajectories
+ p = "../trajectories/20081020134500.plt"
+ q = "../trajectories/20081023055305.plt"
 
-df\_p = pd.read\_csv(p, sep=&#39;,&#39;)
- df\_p.head()
+df_p = pd.read_csv(p, sep=',')
+df_p.head()
 
-![](RackMultipart20200505-4-hrx164_html_58235e8d1c7cf151.png)figure 1. result of df\_p.head()
+```
+<div align="center">
+	<figure>
+  <img src="/assets/img/df.png">
+  <figcaption>figure 1. result of df_p.head()</figcaption>
+</figure>
+</div>
+
 
 As you can see on figure 1, we have 4 main attributes in our dataset: lat (latitude), lng(longitude), datetime and uid(User ID). The coordinates are expressed in decimal degree using the WGS84 datum.
 
-Quick reminder: A **spatial trajectory** is a sequence of points _S = (…, sᵢ, …)_ where sᵢ is a tuple of longitude-latitude such as _sᵢ = (φⱼ, λᵢ)_. We denote the **trajectory length** by _n = |S|._ We denote a **subtrajectory** of S as S(i, ie) = S[i..ie], where 0 ≤ i \&lt; iₑ ≤ n - 1. The identified pair of Subtrajectories is called a **motif**.
+**Quick reminder**: A **spatial trajectory** is a sequence of points $ S = (…, sᵢ, …) $ where sᵢ is a tuple of longitude-latitude such as _sᵢ = (φⱼ, λᵢ)_. We denote the **trajectory length** by $n = <code>&#124;</code>S<code>&#124;</code>.$ We denote a **subtrajectory** of S as $S(i, ie) = S[i..ie]$, where $0 ≤ i < iₑ ≤ n - 1$. The identified pair of subtrajectories is called a **motif**.
 
 To compute the DTW, we will extract sub-trajectories of 2 users, namely u₁ and u₂. The identified pair of sub-trajectories is called a motif. To find a motif with the closest distance between two sub-trajectories, a straightforward approach is to compute recursively the distance between the trajectories and to keep the trajectories that meet a particular threshold.
 
@@ -62,7 +70,14 @@ The main goal of this article is to guide through the process of finding the sim
 
 In order to find the similarity between two trajectories, we need to compute a distance matrix _ **dG** _. It can be considered as a multidimensional array mapping every point of _ **P** _ with _ **Q** _ by their real distance. To find the distance between two geographic points, we can use the **Harvesine formula** illustrated in the equation below:
 
-![](RackMultipart20200505-4-hrx164_html_4adf275c17c6ae58.png)Equation 1. Haversine Formula used to calculate the great-circle distance between two points 1 and 2
+
+<div align="center">
+	<figure>
+  <img src="/assets/img/haversine.png">
+  <figcaption>Equation 1. Haversine Formula used to calculate the great-circle distance between two points 1 and 2</figcaption>
+</figure>
+</div>
+
 
 where _ **λ₁** _,_ **ϕ₁** _ and _ **λ₂** _,_ **ϕ₂** _ are the geographical longitude and latitude in radians of the two points 1 and 2, _ **Δλ** _ , _ **Δϕ** _ be their absolute differences¹.
 
@@ -70,36 +85,44 @@ To compute the distance between u1 and u2 using DTW, we can define a function di
 
 The equation to compute the DTW P and Q (respectively u1 and u2) is the following:
 
-![](RackMultipart20200505-4-hrx164_html_affccfdd0bc8dbf5.png)
+<div align="center">
+	<figure>
+  <img src="/assets/img/dtw.png">
+  <figcaption></figcaption>
+</figure>
+</div>
 
-Let&#39;s implement the algorithm in Python. Even if Python is not the best programming language when it comes to object oriented programming, we will structure our code as much as we can.
+Let's implement the algorithm in Python. Even if Python is not the best programming language when it comes to object oriented programming, we will structure our code as much as we can.
 
 First, we have to create a class that we are going to use. The first class should define a point, represented by longitude and latitude.
-
+```python
 class Point:
- def \_\_init\_\_(self, latitude, longitude):
- self.latitude = latitude
- self.longitude = longitude
+    def __init__(self, latitude, longitude):
+        self.latitude = latitude
+        self.longitude = longitude
 
- def \_\_str\_\_(self):
- return &quot;Point(&quot;+self.latitude+&quot;, &quot;+self.longitude+&quot;)&quot;
+    def __str__(self):
+        return "Point("+self.latitude+", "+self.longitude+")"
+```
 
 Then we will create a class called distance with a main method that returns the distance between two points:
 
+```python
 import math
- from point import Point
+from point import Point
 
- class Distance:
- R = 6371
+class Distance:
+    R = 6371
 
- def get\_distance(cls, point1:Point, point2:Point):
- delta\_lambda = math.radians(point2.latitude - point1.latitude)
- delta\_phi = math.radians(point2.longitude - point1.longitude)
- a = math.sin(delta\_lambda / 2) \* math.sin(delta\_lambda / 2) + math.cos(math.radians(point1.latitude)) \
- \* math.cos(math.radians(point2.latitude)) \* math.sin(delta\_phi / 2) \* math.sin(delta\_phi / 2)
- c = 2 \* math.atan2(math.sqrt(a), math.sqrt(1 - a))
- distance = cls.R \* c
- return distance
+def get_distance(cls, point1:Point, point2:Point):
+		delta_lambda = math.radians(point2.latitude - point1.latitude)
+		delta_phi = math.radians(point2.longitude - point1.longitude)
+		a = math.sin(delta_lambda / 2) * math.sin(delta_lambda / 2) + math.cos(math.radians(point1.latitude)) \
+				* math.cos(math.radians(point2.latitude)) * math.sin(delta_phi / 2) * math.sin(delta_phi / 2)
+		c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+		distance = cls.R * c
+		return distance
+```
 
 Now, we have all the prerequisites to implement the code and find the distance between two trajectories. With our minimalist code, we can represent a trajectory as a list of _**Point[]**_.
 

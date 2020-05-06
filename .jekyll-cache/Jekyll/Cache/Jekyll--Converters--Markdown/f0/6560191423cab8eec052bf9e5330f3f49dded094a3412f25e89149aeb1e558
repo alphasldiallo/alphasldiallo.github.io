@@ -1,4 +1,4 @@
-I"�)<p>The Dynamic Time Warping (DTW) algorithm is one of the most used algorithms to find similarities between two time series. Its goal is to find the optimal global alignment between two time series by exploiting temporal distortions between them. DTW algorithm has been first used to match signals in speech recognition. However, it can also be used in time series of two-dimensional space such as spatial time series used to model trajectories. It computes a good similarity between trajectories containing closed parts.</p>
+I"�,<p>The Dynamic Time Warping (DTW) algorithm is one of the most used algorithms to find similarities between two time series. Its goal is to find the optimal global alignment between two time series by exploiting temporal distortions between them. DTW algorithm has been first used to match signals in speech recognition. However, it can also be used in time series of two-dimensional space such as spatial time series used to model trajectories. It computes a good similarity between trajectories containing closed parts.</p>
 
 <p>A <strong>time serie</strong> is a serie of <a href="https://en.wikipedia.org/wiki/Data_point">data points</a> indexed (or listed or graphed) in time order. Most commonly, a time series is a <a href="https://en.wikipedia.org/wiki/Sequence">sequence</a> taken at successive equally spaced points in time.</p>
 
@@ -27,28 +27,36 @@
 
 <p>Let's set up the tools and explore our dataset:</p>
 
-<p>import pandas as pd</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
 
-<h1 id="p-and-q-represent-our-raw-trajectories"><strong>p</strong> and <strong>q</strong> represent our raw trajectories</h1>
-<p>p = "../trajectories/20081020134500.plt"
- q = "../trajectories/20081023055305.plt"</p>
+<span class="c1"># p and q represent our raw trajectories
+</span> <span class="n">p</span> <span class="o">=</span> <span class="s">"../trajectories/20081020134500.plt"</span>
+ <span class="n">q</span> <span class="o">=</span> <span class="s">"../trajectories/20081023055305.plt"</span>
 
-<p>df_p = pd.read_csv(p, sep=',')
- df_p.head()</p>
+<span class="n">df_p</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s">','</span><span class="p">)</span>
+<span class="n">df_p</span><span class="p">.</span><span class="n">head</span><span class="p">()</span>
 
-<p><img src="RackMultipart20200505-4-hrx164_html_58235e8d1c7cf151.png" alt="" />figure 1. result of df_p.head()</p>
+</code></pre></div></div>
+<div align="center">
+	<figure>
+  <img src="/assets/img/df.png" />
+  <figcaption>figure 1. result of df_p.head()</figcaption>
+</figure>
+</div>
 
 <p>As you can see on figure 1, we have 4 main attributes in our dataset: lat (latitude), lng(longitude), datetime and uid(User ID). The coordinates are expressed in decimal degree using the WGS84 datum.</p>
 
-<table>
-  <tbody>
-    <tr>
-      <td>Quick reminder: A <strong>spatial trajectory</strong> is a sequence of points <em>S = (…, sᵢ, …)</em> where sᵢ is a tuple of longitude-latitude such as <em>sᵢ = (φⱼ, λᵢ)</em>. We denote the <strong>trajectory length</strong> by _n =</td>
-      <td>S</td>
-      <td>._ We denote a <strong>subtrajectory</strong> of S as S(i, ie) = S[i..ie], where 0 ≤ i \&lt; iₑ ≤ n - 1. The identified pair of Subtrajectories is called a <strong>motif</strong>.</td>
-    </tr>
-  </tbody>
-</table>
+<blockquote>
+  <table>
+    <tbody>
+      <tr>
+        <td><strong>Quick reminder</strong>: A <strong>spatial trajectory</strong> is a sequence of points $ S = (…, sᵢ, …) $ where sᵢ is a tuple of longitude-latitude such as <em>sᵢ = (φⱼ, λᵢ)</em>. We denote the <strong>trajectory length</strong> by $n =</td>
+        <td>S</td>
+        <td>.$ We denote a <strong>subtrajectory</strong> of S as $S(i, ie) = S[i..ie]$, where $0 ≤ i &lt; iₑ ≤ n - 1$. The identified pair of subtrajectories is called a <strong>motif</strong>.</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
 
 <p>To compute the DTW, we will extract sub-trajectories of 2 users, namely u₁ and u₂. The identified pair of sub-trajectories is called a motif. To find a motif with the closest distance between two sub-trajectories, a straightforward approach is to compute recursively the distance between the trajectories and to keep the trajectories that meet a particular threshold.</p>
 
