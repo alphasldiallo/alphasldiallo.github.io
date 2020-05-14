@@ -1,5 +1,5 @@
 ---
-title: Dynamic Time Warping Algorithm for trajectories similarity
+title: "[Draft] Dynamic Time Warping Algorithm for trajectories similarity"
 layout: post
 date: '2020-05-05 16:00:00'
 description: You’ll find this post in your `_posts` directory. Go ahead and edit it
@@ -14,9 +14,11 @@ tags:
 - Mobility
 ---
 
+**[This article is a draft containing lot of typos and inaccuracies. Use it at your own risk and please, don't cite me :-p ]**
+
 The Dynamic Time Warping (DTW) algorithm is one of the most used algorithms to find similarities between two time series. Its goal is to find the optimal global alignment between two time series by exploiting temporal distortions between them. DTW algorithm has been first used to match signals in speech recognition. However, it can also be used in time series of two-dimensional space such as spatial time series used to model trajectories. It computes a good similarity between trajectories containing closed parts.
 
-A **time serie** is a serie of [data points](https://en.wikipedia.org/wiki/Data_point) indexed (or listed or graphed) in time order. Most commonly, a time series is a [sequence](https://en.wikipedia.org/wiki/Sequence) taken at successive equally spaced points in time.
+A **time series** is a serie of [data points](https://en.wikipedia.org/wiki/Data_point) indexed (or listed or graphed) in time order. Most commonly, a time series is a [sequence](https://en.wikipedia.org/wiki/Sequence) taken at successive equally spaced points in time.
 
 In this article, we implement the DTW algorithm for human mobility analysis to find similarities between trajectories. The most popular real-world data sources to model human mobility comes from the following sources:
 
