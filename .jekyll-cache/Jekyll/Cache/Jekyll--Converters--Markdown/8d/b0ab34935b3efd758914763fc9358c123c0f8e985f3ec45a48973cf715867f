@@ -1,0 +1,7 @@
+I"<p>In this article, I am going to present what is a convex hull, what is its purpose and how can we construct it in Python. Then I enter into more details by defining an Alpha Shape and using Delaunay triangulation method to construct it.</p>
+
+<p>Convex Hull.
+The main idea behind a convex hull comes from the definition of a convex polygon. As a reminder, a convex polygon is a polygon with all its interior angles less than 180^degrees. By using this definition, we figure out that every regular polygon is convex.</p>
+
+<p>Alpha Shapes.</p>
+:ET
