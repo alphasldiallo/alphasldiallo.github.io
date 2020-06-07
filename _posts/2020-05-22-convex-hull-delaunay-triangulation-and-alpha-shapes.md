@@ -35,4 +35,7 @@ To compute a convex hull of a set of points using the Gift Warping Algorithm, we
 
 Alpha Shapes.
 
+This powerful approach is used to generalize bounding polygons containing a set of points. An interesting use case of Alpha-shapes can be found on this [paper](https://www.researchgate.net/publication/230868294_CrowdInside_Automatic_Construction_of_Indoor_Floorplans). Here, the authors generate floorplans based on collected motion traces. As you can see on the image below, unlike convex hull, alpha shape gives a better precision for finding accurate outline of a set of points. This algorithm is mostly used in computational geometry, especially in processing 3D shapes.
+![Illustration of convex hull and alpha shape to construct a floorplan](/alpha_shape.png).
+
 Every Alpha Shape is a convex hull, but not every convex hull is an alpha shape
