@@ -1,5 +1,4 @@
-I"ç
-<p>In this article, I am going to present what is a convex hull, what is its purpose and how can we construct it in Python. Then I enter into more details by defining an Alpha Shape and using Delaunay triangulation method to construct it.</p>
+I"h<p>In this article, I am going to present what is a convex hull, what is its purpose and how can we construct it in Python. Then I enter into more details by defining an Alpha Shape and using Delaunay triangulation method to construct it.</p>
 
 <p>Convex Hull.
 The main idea behind a convex hull comes from the definition of a convex polygon. As a reminder, a convex polygon is a polygon with all its interior angles less than 180^degrees. By using this definition, we figure out that every regular polygon is convex. If one angle has more than 180 degrees, the polygon is considered to be concave.
@@ -19,5 +18,18 @@ To compute a convex hull of a set of points using the Gift Warping Algorithm, we
 
 <p>Alpha Shapes.</p>
 
-<p>Every Alpha Shape is a convex hull, but not every convex hull is an alpha shape</p>
+<p>This powerful approach is used to generalize bounding polygons containing a set of points. An interesting use case of Alpha-shapes can be found on this <a href="https://www.researchgate.net/publication/230868294_CrowdInside_Automatic_Construction_of_Indoor_Floorplans">paper</a>. Here, the authors generate floorplans based on collected motion traces. As you can see on the image below, unlike convex hull, alpha shape gives a better precision for finding accurate outline of a set of points. This algorithm is mostly used in computational geometry, especially in processing 3D shapes.
+<img src="/alpha_shape.png" alt="Illustration of convex hull and alpha shape to construct a floorplan" />.</p>
+
+<p>Every Alpha Shape is a convex hull, but not every convex hull is an alpha shape. I will explain why later. First, let us find a way to find the alpha shape of a set of points and let us implement it in Python.
+The easiest way of finding alpha-shapes is by usingâ€¦ the** Delaunay Triangulation**.</p>
+
+<blockquote>
+  <p>In mathematics and computational geometry, a Delaunay triangulation (also known as a Delone triangulation) for a given set P of discrete points in a plane is a triangulation DT(P) such that no point in P is inside the circumcircle of any triangle in DT(P). Delaunay triangulations maximize the minimum angle of all the angles of the triangles in the triangulation; they tend to avoid sliver triangles.
+https://en.wikipedia.org/wiki/Delaunay_triangulation</p>
+</blockquote>
+
+<p>In this context, consider a triangulation as a partition of a polygons into nice triangle.
+<img src="/assets/img/triangulation.png" alt="Two nice examples of triangulations" />.
+http://blog.thehumangeo.com/2014/05/12/drawing-boundaries-in-python/</p>
 :ET

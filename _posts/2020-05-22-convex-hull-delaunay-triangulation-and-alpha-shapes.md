@@ -38,4 +38,15 @@ Alpha Shapes.
 This powerful approach is used to generalize bounding polygons containing a set of points. An interesting use case of Alpha-shapes can be found on this [paper](https://www.researchgate.net/publication/230868294_CrowdInside_Automatic_Construction_of_Indoor_Floorplans). Here, the authors generate floorplans based on collected motion traces. As you can see on the image below, unlike convex hull, alpha shape gives a better precision for finding accurate outline of a set of points. This algorithm is mostly used in computational geometry, especially in processing 3D shapes.
 ![Illustration of convex hull and alpha shape to construct a floorplan](/alpha_shape.png).
 
-Every Alpha Shape is a convex hull, but not every convex hull is an alpha shape
+Every Alpha Shape is a convex hull, but not every convex hull is an alpha shape. I will explain why later. First, let us find a way to find the alpha shape of a set of points and let us implement it in Python.
+The easiest way of finding alpha-shapes is by using... the** Delaunay Triangulation**.
+
+> In mathematics and computational geometry, a Delaunay triangulation (also known as a Delone triangulation) for a given set P of discrete points in a plane is a triangulation DT(P) such that no point in P is inside the circumcircle of any triangle in DT(P). Delaunay triangulations maximize the minimum angle of all the angles of the triangles in the triangulation; they tend to avoid sliver triangles.
+> https://en.wikipedia.org/wiki/Delaunay_triangulation
+
+In this context, consider a triangulation as a partition of a polygons into nice triangle.
+![Two nice examples of triangulations](/assets/img/triangulation.png).
+Computing the delaunay triangulation of a point set consists in linking all the points in a way of creating triangles linking all the points. 
+
+
+http://blog.thehumangeo.com/2014/05/12/drawing-boundaries-in-python/
