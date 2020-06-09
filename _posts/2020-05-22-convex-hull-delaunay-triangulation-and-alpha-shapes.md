@@ -41,12 +41,22 @@ This powerful approach is used to generalize bounding polygons containing a set 
 Every Alpha Shape is a convex hull, but not every convex hull is an alpha shape. I will explain why later. First, let us find a way to find the alpha shape of a set of points and let us implement it in Python.
 The easiest way of finding alpha-shapes is by using... the** Delaunay Triangulation**.
 
+### Definition
 > In mathematics and computational geometry, a Delaunay triangulation (also known as a Delone triangulation) for a given set P of discrete points in a plane is a triangulation DT(P) such that no point in P is inside the circumcircle of any triangle in DT(P). Delaunay triangulations maximize the minimum angle of all the angles of the triangles in the triangulation; they tend to avoid sliver triangles.
 > https://en.wikipedia.org/wiki/Delaunay_triangulation
 
-In this context, consider a triangulation as a partition of a polygons into nice triangle.
+
+In this context, consider a triangulation as a partition of a polygons into nice triangle. More formally, a triangulation of a finite point set P ⊂ R2 consists in a collection T of triangles, such that:
+1. conv(P) = ST∈TT;
+2. P =ST∈T V(T); and
+3. for every distinct pair T, U ∈ T, the intersection T ∩ U is either a common vertex, or a common edge, or empty.
+Source: https://www.ti.inf.ethz.ch/ew/Lehre/CG13/lecture/Chapter%206.pdf
+
+Every set P ⊆ R2 of n > 3 points has a triangulation, unless all points in P are collinear (meaning that all the points stands on the same line).
+
 ![Two nice examples of triangulations](/assets/img/triangulation.png).
-Computing the delaunay triangulation of a point set consists in linking all the points in a way of creating triangles linking all the points. 
+
+Computing the delaunay triangulation of a point set consists in linking all the points in a way of creating triangles linking all the points then removing all the triangles for which at least one edge exceeds alpha in length.
 
 
 http://blog.thehumangeo.com/2014/05/12/drawing-boundaries-in-python/
