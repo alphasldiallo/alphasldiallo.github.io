@@ -107,28 +107,23 @@ class Point:
         return "Point("+self.latitude+", "+self.longitude+")"
 ```
 
-Then we will create a class called distance with a main method that returns the distance between two points:
+Then we will create a function that takes a point as input and returns the ground distance between the initial point (defined by self) and the point added as parameter.
 
 ```python
-import math
-from point import Point
 
-class Distance:
-    R = 6371
-
-def get_distance(cls, point1:Point, point2:Point):
-		delta_lambda = math.radians(point2.latitude - point1.latitude)
-		delta_phi = math.radians(point2.longitude - point1.longitude)
-		a = math.sin(delta_lambda / 2) * math.sin(delta_lambda / 2) + math.cos(math.radians(point1.latitude)) \
-				* math.cos(math.radians(point2.latitude)) * math.sin(delta_phi / 2) * math.sin(delta_phi / 2)
-		c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
-		distance = cls.R * c
-		return distance
+	def get_distance(self, point2:Point):
+			delta_lambda = math.radians(point2.latitude - self.latitude)
+			delta_phi = math.radians(point2.longitude - self.longitude)
+			a = math.sin(delta_lambda / 2) * math.sin(delta_lambda / 2) + math.cos(math.radians(self.latitude)) \
+					* math.cos(math.radians(point2.latitude)) * math.sin(delta_phi / 2) * math.sin(delta_phi / 2)
+			c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+			distance = cls.R * c
+			return distance
 ```
 
-Now, we have all the prerequisites to implement the code and find the distance between two trajectories. With our minimalist code, we can represent a trajectory as a list of _**Point[]**_.
+Now, we have all the prerequisites to implement the code and find the distance between two trajectories. With our minimalist code, we can represent a trajectory as a list of _**Point[]**_. We can represent the ground distance between trajectories in a matrix.
 
-As mentioned above, we have to define a function that computes the ground distance between each point
+
 
 Time complexity
 
