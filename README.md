@@ -1,4 +1,1 @@
-# Hello world
 
-Credits:
-artemsheludko
