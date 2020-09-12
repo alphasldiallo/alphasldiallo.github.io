@@ -14,16 +14,30 @@ tags:
 - Mobility
 ---
 
+<<<<<<< HEAD:_posts/2020-08-12-dynamic-time-warping-algorithm-for-trajectories-similarity.md
 The Dynamic Time Warping (DTW) algorithm is one of the most used algorithms to find similarities between two time series. Its goal is to find the optimal global alignment between two time series by exploiting temporal distortions between them. DTW algorithm has been first used to match signals in speech recognition. However, it can also be used in time series of two-dimensional space such as spatial time series used to model trajectories. It computes a good similarity between trajectories containing closed parts.
 
 
+=======
+The Dynamic Time Warping (DTW) algorithm is one of the most used algorithms to find similarities between two time series. Its goal is to find the optimal global alignment between two time series by exploiting temporal distortions between them. DTW algorithm has been first used to match signals in speech recognition. 
+However, its scope of use is wider as it can be used in Time series of two-dimensional space to model trajectories. In the case of modeling and analyzing trajectories, the DTW algorithm stands out as a good way of computing similarity between trajectories.
 
-In this article, we implement the DTW algorithm for human mobility analysis to find similarities between trajectories. The most popular real-world data sources to model human mobility comes from the following sources:
+> A **time series** is a serie of [data points](https://en.wikipedia.org/wiki/Data_point) indexed (or listed or graphed) in time order. Most commonly, a time series > is a [sequence](https://en.wikipedia.org/wiki/Sequence) taken at successive equally spaced points in time.
 
-- Call Detail Records (CDRs). Mostly accessible by network operators, CDRs have the advantage of having a huge sample size due to the ubiquity of mobile phones. These datasets offer a tower level precision and for obvious privacy reasons, these datasets are not publicly available.
-- Location-Based Social Network (LBSN). With the increasing use of social networks, new sources of data have emerged. Social Network platforms like Facebook, Twitter or FourSquare provide geographic check-ins or geolocated publications. These data, mostly freely available, can be used as a basis to model human mobility trajectories. The main drawback of LBSN&#39;s dataset is the sparsity of the location, indeed, entries are set only when check-ins are made.
-- GPS data. Compared to the data sources previously cited, GPS data offers high spatial and temporal precision and offer a good socle to analyze full trajectories such as car movements, people movements,… The drawback of GPS data is that it requires additional preprocessing due to errors when the GPS signal is noisy.
+In this article, we implement the DTW algorithm for human mobility analysis to find similarities between trajectories. 
+>>>>>>> 59db83e91368765b56fd7e50f1e1aa2a9125e8dd:_posts/2017-09-12-dynamic-time-warping-algorithm-for-trajectories-similarity.md
 
+**Quick reminder**: A **spatial trajectory** is a sequence of points $ S = (…, sᵢ, …) $ where sᵢ is a tuple of longitude-latitude such as _sᵢ = (φⱼ, λᵢ)_. We denote the **trajectory length** by $n = <code>&#124;</code>S<code>&#124;</code>.$ We denote a **subtrajectory** of S as $S(i, ie) = S[i..ie]$, where $0 ≤ i < iₑ ≤ n - 1$. The identified pair of subtrajectories is called a **motif**.
+
+We can extract trajectories from several data sources. Some of the data sources used for capturing human mobility traces are as follows.
+
+- **Call Detail Records (CDRs)**. Mostly accessible by network operators, CDRs have the advantage of having a huge sample size due to the ubiquity of mobile phones. These datasets offer a tower level precision and for obvious privacy reasons, these datasets are not publicly available.
+- **Location-Based Social Network (LBSN)**. With the increasing use of social networks, new sources of data have emerged. Social Network platforms like Facebook, Twitter or FourSquare provide geographic check-ins or geolocated publications. These data, mostly freely available, can be used as a basis to model human mobility trajectories. The main drawback of LBSN&#39;s dataset is the sparsity of the location, indeed, entries are set only when check-ins are made.
+- **GPS data**. Compared to the data sources previously cited, GPS data offers high spatial and temporal precision and offer a good socle to analyze full trajectories such as car movements, people movements,… The drawback of GPS data is that it requires additional preprocessing due to errors when the GPS signal is noisy.
+
+To implement the DTW algorithm, we can either use an LBSN dataset or raw GPS data. In our case, we need accurate location data to draw trajectories, so we are going to use a GPS dataset. Many GPS datasets are available freely on the internet. Most of these datasets are designed from real-world data collected over a period of time. As example, we have the popular Nokia and Geolife datasets. 
+
+<<<<<<< HEAD:_posts/2020-08-12-dynamic-time-warping-algorithm-for-trajectories-similarity.md
 ## Definitions
 A **time series** is a serie of [data points](https://en.wikipedia.org/wiki/Data_point) indexed (or listed or graphed) in time order. Most commonly, a time series is a [sequence](https://en.wikipedia.org/wiki/Sequence) taken at successive equally spaced points in time.
 
@@ -36,12 +50,19 @@ We denote a **subtrajectory** of S as $S(i, ie) = S[i..ie]$, where $0 ≤ i < i�
 In the language of GIS, therefore, a trajectory is represented as a LINESTRING feature together with an attribute representing time.
 
 To implement the DTW algorithm, we can either use an LBSN dataset or raw GPS data. In our case, we need accurate locations to draw trajectories, so we are going to use a GPS dataset. Many GPS datasets are available freely on the internet. La plupart de ces datasets ont été conçus à partir de données réélles collectées sur une certaine période de temps. As example, we have the popular Nokia and Geolife datasets. The drawback of these datasets is their sparsity and size. The goal of this blogpost been to implement the DTW on two sub-trajectories, discovering a motif is not a priority.
+=======
+<!--- The drawback of these datasets is their sparsity and size. The goal of this blogpost being to implement the DTW on two sub-trajectories, discovering a motif is not a priority. -->
+>>>>>>> 59db83e91368765b56fd7e50f1e1aa2a9125e8dd:_posts/2017-09-12-dynamic-time-warping-algorithm-for-trajectories-similarity.md
 
 For the testing purposes, we can use a sample of the [Geolife dataset](https://www.microsoft.com/en-us/download/details.aspx?id=52367) which contains trajectories of 182 individuals collected during 3 years by a research team of Microsoft Research Asia. It has a total of 17,621 trajectories of about 1.2 million kilometres.
 
 To analyze this sample dataset, we can use the Pandas library on Python. To better understand how a trajectory similarity algorithm works, we will compute the distance manually using the DTW algorithm.
 
+<<<<<<< HEAD:_posts/2020-08-12-dynamic-time-warping-algorithm-for-trajectories-similarity.md
 ## Requirements:
+=======
+### Requirements:
+>>>>>>> 59db83e91368765b56fd7e50f1e1aa2a9125e8dd:_posts/2017-09-12-dynamic-time-warping-algorithm-for-trajectories-similarity.md
 
 - Python ≥3.6
 - Pandas library
@@ -54,8 +75,8 @@ Let&#39;s set up the tools and explore our dataset:
 import pandas as pd
 
 # p and q represent our raw trajectories
- p = "../trajectories/20081020134500.plt"
- q = "../trajectories/20081023055305.plt"
+p = "../trajectories/20081020134500.plt"
+q = "../trajectories/20081023055305.plt"
 
 df_p = pd.read_csv(p, sep=',')
 df_p.head()
@@ -64,14 +85,17 @@ df_p.head()
 <div align="center">
 	<figure>
   <img src="/assets/img/df.png">
-  <figcaption>figure 1. result of df_p.head()</figcaption>
+  <figcaption>figure 1. Result of  df_p.head()</figcaption>
 </figure>
 </div>
 
 
 As you can see on figure 1, we have 4 main attributes in our dataset: lat (latitude), lng(longitude), datetime and uid(User ID). The coordinates are expressed in decimal degree using the **WGS84** datum.
 
+<<<<<<< HEAD:_posts/2020-08-12-dynamic-time-warping-algorithm-for-trajectories-similarity.md
 
+=======
+>>>>>>> 59db83e91368765b56fd7e50f1e1aa2a9125e8dd:_posts/2017-09-12-dynamic-time-warping-algorithm-for-trajectories-similarity.md
 To compute the DTW, we will extract sub-trajectories of 2 users, namely u₁ and u₂. The identified pair of sub-trajectories is called a motif. To find a motif with the closest distance between two sub-trajectories, a straightforward approach is to compute recursively the distance between the trajectories and to keep the trajectories that meet a particular threshold.
 
 Depending on the complexity of the technique used and on the size of the dataset, this operation can quickly escalate into a lengthy process.
@@ -111,19 +135,31 @@ class Point:
 		self.latitude = latitude
 		self.longitude = longitude
 
+<<<<<<< HEAD:_posts/2020-08-12-dynamic-time-warping-algorithm-for-trajectories-similarity.md
 def __str__(self):
 	return "Point("+self.latitude+", "+self.longitude+")"
+=======
+	def __str__(self):
+		return "Point("+self.latitude+", "+self.longitude+")"
+>>>>>>> 59db83e91368765b56fd7e50f1e1aa2a9125e8dd:_posts/2017-09-12-dynamic-time-warping-algorithm-for-trajectories-similarity.md
 ```
 
 Then we will create a function that takes a point as input and returns the ground distance between the initial point (defined by self) and the point added as parameter.
 
 ```python
+<<<<<<< HEAD:_posts/2020-08-12-dynamic-time-warping-algorithm-for-trajectories-similarity.md
 
+=======
+>>>>>>> 59db83e91368765b56fd7e50f1e1aa2a9125e8dd:_posts/2017-09-12-dynamic-time-warping-algorithm-for-trajectories-similarity.md
 def get_distance(self, point2:Point):
 	delta_lambda = math.radians(point2.latitude - self.latitude)
 	delta_phi = math.radians(point2.longitude - self.longitude)
 	a = math.sin(delta_lambda / 2) * math.sin(delta_lambda / 2) + math.cos(math.radians(self.latitude)) \
+<<<<<<< HEAD:_posts/2020-08-12-dynamic-time-warping-algorithm-for-trajectories-similarity.md
 	* math.cos(math.radians(point2.latitude)) * math.sin(delta_phi / 2) * math.sin(delta_phi / 2)
+=======
+			* math.cos(math.radians(point2.latitude)) * math.sin(delta_phi / 2) * math.sin(delta_phi / 2)
+>>>>>>> 59db83e91368765b56fd7e50f1e1aa2a9125e8dd:_posts/2017-09-12-dynamic-time-warping-algorithm-for-trajectories-similarity.md
 	c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
 	distance = cls.R * c
 	return distance
@@ -133,19 +169,31 @@ Now, we have all the prerequisites to implement the code and find the distance b
 
 
 
+<<<<<<< HEAD:_posts/2020-08-12-dynamic-time-warping-algorithm-for-trajectories-similarity.md
 ## Time complexity
+=======
+### Time complexity
+>>>>>>> 59db83e91368765b56fd7e50f1e1aa2a9125e8dd:_posts/2017-09-12-dynamic-time-warping-algorithm-for-trajectories-similarity.md
 
 For two trajectories N and M, the time complexity of the DTW algorithm can be presented as *O(N M)*. Assuming that N\&gt;M, the time complexity is determined by the highest time spent to run the computation, so in this case, time complexity of the algorithm will be *O(N²)*.
 
 DTW algorithm is known to have a quadratic time complexity that limits its use to only small time series data sets¹.
 
-To optimize the computational time required by the DTW algorithm, some techniques have been developed such as PruneDTW, SparseDTW, FastDTW and the MultiscaledDTW.
+To optimize the computational time required by the DTW algorithm, some techniques have been developed such as **PruneDTW**, **SparseDTW**, **FastDTW** and the **MultiscaledDTW**. These techniques are not covered in this article. 
 
+<<<<<<< HEAD:_posts/2020-08-12-dynamic-time-warping-algorithm-for-trajectories-similarity.md
 ## Drawbacks of DTW
 
 DTW performs well for finding similarity between two trajectories if they are similar in most parts, but the main drawback of this algorithm is that it gives non-meaningful results when it comes to comparing two trajectories containing significant dissimilar portions.
 
 ## Comparison with other similarities measures
+=======
+### Drawbacks of DTW
+
+DTW performs well for finding similarity between two trajectories if they are similar in most parts, but the main drawback of this algorithm is that it gives non-meaningful results when it comes to comparing two trajectories containing significant dissimilar portions.
+
+### Comparison with other similarities measures
+>>>>>>> 59db83e91368765b56fd7e50f1e1aa2a9125e8dd:_posts/2017-09-12-dynamic-time-warping-algorithm-for-trajectories-similarity.md
 
 By matching each point of a trajectory to another, DTW algorithm gives good results with uniformly sampled trajectories. Meanwhile, with non-uniformly sampled trajectories, DTW adds up all distances between matched pairs².
 
