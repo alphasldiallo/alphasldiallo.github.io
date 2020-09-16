@@ -1,36 +1,30 @@
 title: Alpha's blog
-description: > # this means to ignore newlines until "baseurl:"
+description: |
   I'm gonna do it later
 permalink: ':title/'
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "alphasldiallo.github.io" # the base hostname & protocol for your site, e.g. http://example.com
-site-twitter: alphadiallo009 #if your site has a twitter account, enter it here
-
-# Author Settings
+baseurl: ''
+url: alphasldiallo.github.io
+site-twitter: alphadiallo009
 author: Alpha Diallo
-author-img: alpha-diallo.png # add your photo
-about-author: PhD student - Full stack developer # add description
+author-img: alpha-diallo.png
+about-author: PhD student - Full stack developer
 social-twitter: alphadiallo009
-social-facebook: # add your Facebook handle
-social-github: alphasldiallo # add your Github handle
-social-linkedin: alpha-diallo-09 
+social-facebook: null
+social-github: alphasldiallo
+social-linkedin: alpha-diallo-09
 social-email: alpha.diallo@unil.ch
-
-# Disqus
-discus-identifier: alphasldiallo # add your discus identifier
-
-# Tracker
-analytics: # Google Analytics
-
-# Build Settings
+discus-identifier: alphasldiallo
+analytics: 'null'
 markdown: kramdown
 plugins:
   - jekyll-sitemap
   - jekyll-paginate
   - jemoji
   - jekyll-admin
-
 paginate: 8
-paginate_path: "/page/:num"
-
-exclude: ["node_modules", "gulpfile.js", "package.json", "yarn.lock"]
+paginate_path: '/page/:num'
+exclude:
+  - node_modules
+  - gulpfile.js
+  - package.json
+  - yarn.lock

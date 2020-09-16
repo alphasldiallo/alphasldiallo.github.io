@@ -1362,15 +1362,17 @@ a.newer-posts:hover {
   opacity: .8;
 }
 .menu{
-  text-align: left;
+  text-align: center;
   display: inline-block;
   font-size: large;
+  padding: 15%;
 }
 .menu ul{
   list-style-type: none;
 }
 .menu a{
   text-decoration: none;
+  color: #515151;
 }
 
 /* - - - - - - - - - - Media Styles - - - - - - - - - - */
