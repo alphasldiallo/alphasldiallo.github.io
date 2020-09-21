@@ -14,14 +14,14 @@ tags:
 - Mobility
 ---
 
-The Dynamic Time Warping (DTW) algorithm is one of the most used algorithms to find similarities between two time series. Its goal is to find the optimal global alignment between two time series by exploiting temporal distortions between them. DTW algorithm has been first used to match signals in speech recognition and music retrieval$^1$. 
+The Dynamic Time Warping (DTW) algorithm is one of the most used algorithms to find similarities between two time series. Its goal is to find the optimal global alignment between two time series by exploiting temporal distortions between them. DTW algorithm has been first used to match signals in speech recognition and music retrieval$$^1$$. 
 However, its scope of use is wider as it can be used in Time series of two-dimensional space to model trajectories. In the case of modeling and analyzing trajectories, the DTW algorithm stands out as a good way of computing similarity between trajectories.
 
 > A **time series** is a serie of [data points](https://en.wikipedia.org/wiki/Data_point) indexed (or listed or graphed) in time order. Most commonly, a time series > is a [sequence](https://en.wikipedia.org/wiki/Sequence) taken at successive equally spaced points in time.
 
 In this article, we implement the DTW algorithm for human mobility analysis to find similarities between trajectories. 
 
-**Quick reminder**: A **spatial trajectory** is a sequence of points $ S = (…, sᵢ, …) $ where sᵢ is a tuple of longitude-latitude such as _sᵢ = (φⱼ, λᵢ)_. We denote the **trajectory length** by $n = <code>&#124;</code>S<code>&#124;</code>.$ We denote a **subtrajectory** of S as $S(i, ie) = S[i..ie]$, where $0 ≤ i < iₑ ≤ n - 1$. The identified pair of subtrajectories is called a **motif**.
+**Quick reminder**: A **spatial trajectory** is a sequence of points $$ S = (…, sᵢ, …) $$ where sᵢ is a tuple of longitude-latitude such as _sᵢ = (φⱼ, λᵢ)_. We denote the **trajectory length** by $$n$$ = <code>&#124;</code>S<code>&#124;</code>. We denote a **subtrajectory** of S as $$S(i, ie) = S[i..ie]$$, where $$0 ≤ i < iₑ ≤ n - 1$$. The identified pair of subtrajectories is called a **motif**.
 
 We can extract trajectories from several data sources. Some of the data sources used for capturing human mobility traces are as follows.
 
@@ -34,11 +34,11 @@ To implement the DTW algorithm, we can either use an LBSN dataset or raw GPS dat
 ## Definitions
 A **time series** is a serie of [data points](https://en.wikipedia.org/wiki/Data_point) indexed (or listed or graphed) in time order. Most commonly, a time series is a [sequence](https://en.wikipedia.org/wiki/Sequence) taken at successive equally spaced points in time.
 
-A **spatial trajectory** is a sequence of points $ S = (…, sᵢ, …) $ where sᵢ is a tuple of longitude-latitude such as _sᵢ = (φⱼ, λᵢ)_. In the GIS world, a trajectory is represented as a [LineString](https://en.wikipedia.org/wiki/Polygonal_chain) associated witht an attribute of time.
+A **spatial trajectory** is a sequence of points $$ S = (…, sᵢ, …) $$ where sᵢ is a tuple of longitude-latitude such as _sᵢ = (φⱼ, λᵢ)_. In the GIS world, a trajectory is represented as a [LineString](https://en.wikipedia.org/wiki/Polygonal_chain) associated witht an attribute of time.
 
-We denote the **trajectory length** by $n$ = <code>&#124;</code>S<code>&#124;</code>.
+We denote the **trajectory length** by $$n$$ = <code>&#124;</code>S<code>&#124;</code>.
 
-We denote a **subtrajectory** of S as $S(i, ie) = S[i..ie]$, where $0 ≤ i < iₑ ≤ n - 1$. The identified pair of subtrajectories is called a **motif**.
+We denote a **subtrajectory** of S as $$S(i, ie) = S[i..ie]$$, where $$0 ≤ i < iₑ ≤ n - 1$$. The identified pair of subtrajectories is called a **motif**.
 
 In the language of GIS, therefore, a trajectory is represented as a LINESTRING feature together with an attribute representing time.
 
@@ -84,7 +84,7 @@ Depending on the complexity of the technique used and on the size of the dataset
 
 The main goal of this article is to guide through the process of finding the similarity between two trajectories and to find the warp path between two time series that is optimal.
 
-In order to find the similarity between two trajectories, we need to compute a distance matrix _ **dG** _. It can be considered as a multidimensional array mapping every point of _ **P** _ with _ **Q** _ by their real distance. To find the distance between two geographic points, we can use the **Harvesine formula** illustrated in the equation below:
+In order to find the similarity between two trajectories, we need to compute a distance matrix  **dG**. It can be considered as a multidimensional array mapping every point of _ **P** _ with _ **Q** _ by their real distance. To find the distance between two geographic points, we can use the **Harvesine formula** illustrated in the equation below:
 
 
 <div align="center">
@@ -95,7 +95,7 @@ In order to find the similarity between two trajectories, we need to compute a d
 </div>
 
 
-where _ **λ₁** _,_ **ϕ₁** _ and _ **λ₂** _,_ **ϕ₂** _ are the geographical longitude and latitude in radians of the two points 1 and 2, _ **Δλ** _ , _ **Δϕ** _ be their absolute differences$^2$.
+where _ **λ₁** _,_ **ϕ₁** _ and _ **λ₂** _,_ **ϕ₂** _ are the geographical longitude and latitude in radians of the two points 1 and 2, **Δλ**, **Δϕ** be their absolute differences$$^2$$.
 
 To compute the distance between u1 and u2 using DTW, we can define a function distance that computes the ground distance between two points. Then by using the principle of dynamic programming, we can go through the matrix recursively until we get the final score which will represent the DTW between our two trajectories.
 
@@ -134,7 +134,7 @@ def get_distance(self, point2:Point):
 	return distance
 ```
 
-Now, we have all the prerequisites to implement the code and find the distance between two trajectories. With our minimalist code, we can represent a trajectory as a list of _**Point[]**_. We can represent the ground distance between trajectories in a matrix.
+Now, we have all the prerequisites to implement the code and find the distance between two trajectories. With our minimalist code, we can represent a trajectory as a list of **Point[]**. We can represent the ground distance between trajectories in a matrix.
 
 
 
@@ -142,7 +142,7 @@ Now, we have all the prerequisites to implement the code and find the distance b
 
 For two trajectories N and M, the time complexity of the DTW algorithm can be presented as *O(N M)*. Assuming that N\&gt;M, the time complexity is determined by the highest time spent to run the computation, so in this case, time complexity of the algorithm will be *O(N²)*.
 
-DTW algorithm is known to have a quadratic time complexity that limits its use to only small time series data sets$^3$.
+DTW algorithm is known to have a quadratic time complexity that limits its use to only small time series data sets$$^3$$.
 
 To optimize the computational time required by the DTW algorithm, some techniques have been developed such as **PruneDTW**, **SparseDTW**, **FastDTW** and the **MultiscaledDTW**. These techniques are not covered in this article. 
 
@@ -152,7 +152,7 @@ DTW performs well for finding similarity between two trajectories if they are si
 
 ## Comparison with other similarities measures
 
-By matching each point of a trajectory to another, DTW algorithm gives good results with uniformly sampled trajectories. Meanwhile, with non-uniformly sampled trajectories, DTW adds up all distances between matched pairs$^3$.
+By matching each point of a trajectory to another, DTW algorithm gives good results with uniformly sampled trajectories. Meanwhile, with non-uniformly sampled trajectories, DTW adds up all distances between matched pairs$$^3$$.
 
 Algorithms available for finding similarities between trajectories can be sorted by applying a trade-off between efficiency and effectiveness. Among the most efficient method in terms of performance, the Euclidean Distance ranks amongst the best. In fact, Euclidean Distance between two time series is simply the sum of the squared distances from _n_th point to the other. For comparing trajectories, Euclidean distance shows a great performance in terms of computational time, but its
 main disadvantage for time series data is that its results are very unintuitive.
