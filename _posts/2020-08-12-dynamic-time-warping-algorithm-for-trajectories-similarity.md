@@ -108,9 +108,9 @@ The equation to compute the DTW P and Q (respectively u1 and u2) is the followin
 </figure>
 </div>
 
-Let's implement the algorithm in Python. Even if Python is not the best programming language when it comes to object oriented programming, we will structure our code as much as we can.
+Let's implement the algorithm in Python. We will structure our code by using classes.
 
-First, we have to create a class that we are going to use. The first class should define a point, represented by longitude and latitude.
+First, we have to create a class that we are going to use. The first class should define a point, represented by longitude, latitude and a timestamp.
 ```python
 class Point:
 	def __init__(self, latitude, longitude):
@@ -121,7 +121,14 @@ def __str__(self):
 	return "Point("+self.latitude+", "+self.longitude+")"
 ```
 
-Then we will create a function that takes a point as input and returns the ground distance between the initial point (defined by self) and the point added as parameter.
+Then, we can declare a class representing trajectories:
+```python
+class Trajectory:
+    def __init__(self, points = []):
+        self.points = points
+```
+
+We will create a function that takes a point as input and returns the ground distance between the initial point (defined by self) and the point added as parameter.
 
 ```python
 def get_distance(self, point2:Point):
@@ -148,7 +155,7 @@ To optimize the computational time required by the DTW algorithm, some technique
 
 ## Drawbacks of DTW
 
-DTW performs well for finding similarity between two trajectories if they are similar in most parts, but the main drawback of this algorithm is that it gives non-meaningful results when it comes to comparing two trajectories containing significant dissimilar portions.
+DTW performs well for finding similarity between two trajectories if they are similar in most parts, but the main drawback of this algorithm is that DTW is sensitive to noise i.e. it gives non-meaningful results when it comes to comparing two trajectories containing significant dissimilar portions.
 
 ## Comparison with other similarities measures
 
