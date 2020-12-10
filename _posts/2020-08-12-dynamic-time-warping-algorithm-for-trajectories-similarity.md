@@ -42,7 +42,7 @@ We denote a **subtrajectory** of S as $S(i, ie) = S[i..ie]$, where $0 ≤ i < i�
 
 In the language of GIS, therefore, a trajectory is represented as a LINESTRING feature together with an attribute representing time.
 
-To implement the DTW algorithm, we can either use an LBSN dataset or raw GPS data. In our case, we need accurate locations to draw trajectories, so we are going to use a GPS dataset. Many GPS datasets are available freely on the internet. La plupart de ces datasets ont été conçus à partir de données réélles collectées sur une certaine période de temps. As example, we have the popular Nokia and Geolife datasets. The drawback of these datasets is their sparsity and size. The goal of this blogpost been to implement the DTW on two sub-trajectories, discovering a motif is not a priority.
+To implement the DTW algorithm, we can either use an LBSN dataset or raw GPS data. In our case, we need accurate locations to draw trajectories, so we are going to use a GPS dataset. Many GPS datasets are available freely on the internet. Most of these datasets were built from real-life data collected over a period of time. As example, we have the popular Nokia and Geolife datasets. The drawback of these datasets is their sparsity and size. The goal of this blogpost been to implement the DTW on two sub-trajectories, discovering a motif is not a priority.
 
 For the testing purposes, we can use a sample of the [Geolife dataset](https://www.microsoft.com/en-us/download/details.aspx?id=52367) which contains trajectories of 182 individuals collected during 3 years by a research team of Microsoft Research Asia. It has a total of 17,621 trajectories of about 1.2 million kilometres.
 
