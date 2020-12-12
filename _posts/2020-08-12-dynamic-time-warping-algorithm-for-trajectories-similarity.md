@@ -59,19 +59,20 @@ Let&#39;s set up the tools and explore our dataset:
 
 ```python
 import pandas as pd
+import copy
 
-# p and q represent our raw trajectories
-p = "../trajectories/20081020134500.plt"
-q = "../trajectories/20081023055305.plt"
+file = "geolife_sample.txt.gz"
 
-df_p = pd.read_csv(p, sep=',')
-df_p.head()
+df = pd.read_csv(file, sep=',')
+df.sort_values(by=["uid"], inplace=True)
+
+df.head()
 
 ```
 <div align="center">
 	<figure>
   <img src="/assets/img/df.png">
-  <figcaption>figure 1. Result of  df_p.head()</figcaption>
+  <figcaption>figure 1. Result of  df.head()</figcaption>
 </figure>
 </div>
 
@@ -143,7 +144,26 @@ def get_distance(self, point2:Point):
 
 Now, we have all the prerequisites to implement the code and find the distance between two trajectories. With our minimalist code, we can represent a trajectory as a list of **Point[]**. We can represent the ground distance between trajectories in a matrix.
 
+We can use the following code to parse the geolife sample dataset to extract the two trajectories:
 
+```python
+# Here, we get the unique trajectories
+unique_uids = df.drop_duplicates(["uid"])
+unique_uids = unique_uids["uid"].to_list()
+
+# Then, we split the trajectories
+points = []
+trajectories = []
+for i in range(len(unique_uids)):
+    tmp_df = df.loc[df["uid"]==unique_uids[i]]
+    len(tmp_df)
+    for j in range(len(tmp_df)):
+        points.append(Point(tmp_df.iloc[j][0], tmp_df.iloc[j][1], tmp_df.iloc[j][2]))
+    trajectories.append(copy.deepcopy(points))
+    points.clear()
+		
+```
+The trajectories are now stored in a list called `trajectories`. 
 
 ## Time complexity
 
