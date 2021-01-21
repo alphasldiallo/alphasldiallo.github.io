@@ -42,7 +42,7 @@ We denote a **subtrajectory** of S as $$S(i, ie) = S[i..ie]$$, where $$0 ≤ i <
 
 In the language of GIS, therefore, a trajectory is represented as a LINESTRING feature together with an attribute representing time.
 
-To implement the DTW algorithm, we can either use an LBSN dataset or raw GPS data. In our case, we need accurate locations to draw trajectories, so we are going to use a GPS dataset. Many GPS datasets are available freely on the internet. La plupart de ces datasets ont été conçus à partir de données réélles collectées sur une certaine période de temps. As example, we have the popular Nokia and Geolife datasets. The drawback of these datasets is their sparsity and size. The goal of this blogpost been to implement the DTW on two sub-trajectories, discovering a motif is not a priority.
+To implement the DTW algorithm, we can either use an LBSN dataset or raw GPS data. In our case, we need accurate locations to draw trajectories, so we are going to use a GPS dataset. Many GPS datasets are available freely on the internet. Most of these datasets were built from real-life data collected over a period of time. As example, we have the popular Nokia and Geolife datasets. The drawback of these datasets is their sparsity and size. The goal of this blogpost been to implement the DTW on two sub-trajectories, discovering a motif is not a priority.
 
 For the testing purposes, we can use a sample of the [Geolife dataset](https://www.microsoft.com/en-us/download/details.aspx?id=52367) which contains trajectories of 182 individuals collected during 3 years by a research team of Microsoft Research Asia. It has a total of 17,621 trajectories of about 1.2 million kilometres.
 
@@ -59,19 +59,20 @@ Let&#39;s set up the tools and explore our dataset:
 
 ```python
 import pandas as pd
+import copy
 
-# p and q represent our raw trajectories
-p = "../trajectories/20081020134500.plt"
-q = "../trajectories/20081023055305.plt"
+file = "geolife_sample.txt.gz"
 
-df_p = pd.read_csv(p, sep=',')
-df_p.head()
+df = pd.read_csv(file, sep=',')
+df.sort_values(by=["uid"], inplace=True)
+
+df.head()
 
 ```
 <div align="center">
 	<figure>
   <img src="/assets/img/df.png">
-  <figcaption>figure 1. Result of  df_p.head()</figcaption>
+  <figcaption>figure 1. Result of  df.head()</figcaption>
 </figure>
 </div>
 
@@ -108,9 +109,9 @@ The equation to compute the DTW P and Q (respectively u1 and u2) is the followin
 </figure>
 </div>
 
-Let's implement the algorithm in Python. Even if Python is not the best programming language when it comes to object oriented programming, we will structure our code as much as we can.
+Let's implement the algorithm in Python. We will structure our code by using classes.
 
-First, we have to create a class that we are going to use. The first class should define a point, represented by longitude and latitude.
+First, we have to create a class that we are going to use. The first class should define a point, represented by longitude, latitude and a timestamp.
 ```python
 class Point:
 	def __init__(self, latitude, longitude):
@@ -121,7 +122,14 @@ def __str__(self):
 	return "Point("+self.latitude+", "+self.longitude+")"
 ```
 
-Then we will create a function that takes a point as input and returns the ground distance between the initial point (defined by self) and the point added as parameter.
+Then, we can declare a class representing trajectories:
+```python
+class Trajectory:
+    def __init__(self, points = []):
+        self.points = points
+```
+
+We will create a function that takes a point as input and returns the ground distance between the initial point (defined by self) and the point added as parameter.
 
 ```python
 def get_distance(self, point2:Point):
@@ -136,7 +144,26 @@ def get_distance(self, point2:Point):
 
 Now, we have all the prerequisites to implement the code and find the distance between two trajectories. With our minimalist code, we can represent a trajectory as a list of **Point[]**. We can represent the ground distance between trajectories in a matrix.
 
+We can use the following code to parse the geolife sample dataset to extract the two trajectories:
 
+```python
+# Here, we get the unique trajectories
+unique_uids = df.drop_duplicates(["uid"])
+unique_uids = unique_uids["uid"].to_list()
+
+# Then, we split the trajectories
+points = []
+trajectories = []
+for i in range(len(unique_uids)):
+    tmp_df = df.loc[df["uid"]==unique_uids[i]]
+    len(tmp_df)
+    for j in range(len(tmp_df)):
+        points.append(Point(tmp_df.iloc[j][0], tmp_df.iloc[j][1], tmp_df.iloc[j][2]))
+    trajectories.append(copy.deepcopy(points))
+    points.clear()
+		
+```
+The trajectories are now stored in a list called `trajectories`. 
 
 ## Time complexity
 
@@ -148,7 +175,7 @@ To optimize the computational time required by the DTW algorithm, some technique
 
 ## Drawbacks of DTW
 
-DTW performs well for finding similarity between two trajectories if they are similar in most parts, but the main drawback of this algorithm is that it gives non-meaningful results when it comes to comparing two trajectories containing significant dissimilar portions.
+DTW performs well for finding similarity between two trajectories if they are similar in most parts, but the main drawback of this algorithm is that DTW is sensitive to noise i.e. it gives non-meaningful results when it comes to comparing two trajectories containing significant dissimilar portions.
 
 ## Comparison with other similarities measures
 
