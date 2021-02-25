@@ -14,7 +14,7 @@ tags:
 - Mobility
 ---
 
-The Dynamic Time Warping (DTW) algorithm is one of the most used algorithms to find similarities between two time series. Its goal is to find the optimal global alignment between two time series by exploiting temporal distortions between them. DTW algorithm has been first used to match signals in speech recognition and music retrieval$$^1$$. 
+The Dynamic Time Warping (DTW) algorithm is one of the most used algorithm to find similarities between two time series. Its goal is to find the optimal global alignment between two time series by exploiting temporal distortions between them. DTW algorithm has been first used to match signals in speech recognition and music retrieval$$^1$$. 
 However, its scope of use is wider as it can be used in Time series of two-dimensional space to model trajectories. In the case of modeling and analyzing trajectories, the DTW algorithm stands out as a good way of computing similarity between trajectories.
 
 > A **time series** is a serie of [data points](https://en.wikipedia.org/wiki/Data_point) indexed (or listed or graphed) in time order. Most commonly, a time series > is a [sequence](https://en.wikipedia.org/wiki/Sequence) taken at successive equally spaced points in time.
@@ -85,7 +85,7 @@ Depending on the complexity of the technique used and on the size of the dataset
 
 The main goal of this article is to guide through the process of finding the similarity between two trajectories and to find the warp path between two time series that is optimal.
 
-In order to find the similarity between two trajectories, we need to compute a distance matrix  **dG**. It can be considered as a multidimensional array mapping every point of _ **P** _ with _ **Q** _ by their real distance. To find the distance between two geographic points, we can use the **Harvesine formula** illustrated in the equation below:
+In order to find the similarity between two trajectories, we need to compute a distance matrix  **dG** which can be considered as a multidimensional array mapping every point of a trajectory _**P**_  with points of a trajectory _**Q**_  by their real distance. To find the distance between two geographic points, we can use the **Harvesine formula** illustrated in the equation below:
 
 
 <div align="center">
@@ -96,9 +96,9 @@ In order to find the similarity between two trajectories, we need to compute a d
 </div>
 
 
-where _ **λ₁** _,_ **ϕ₁** _ and _ **λ₂** _,_ **ϕ₂** _ are the geographical longitude and latitude in radians of the two points 1 and 2, **Δλ**, **Δϕ** be their absolute differences$$^2$$.
+where _**λ₁**_, _**ϕ₁**_ and _**λ₂**_, _**ϕ₂**_ are the geographical longitude and latitude in radians of the two points 1 and 2, _**Δλ**_, _**Δϕ**_ be their absolute differences$$^2$$.
 
-To compute the distance between u1 and u2 using DTW, we can define a function distance that computes the ground distance between two points. Then by using the principle of dynamic programming, we can go through the matrix recursively until we get the final score which will represent the DTW between our two trajectories.
+To compute the distance between _**u1**_ and _**u2**_ using DTW, we can define a function distance that computes the ground distance between two points. Then by using the principle of dynamic programming, we can go through the matrix recursively until we get the final score which will represent the DTW between our two trajectories.
 
 The equation to compute the DTW P and Q (respectively u1 and u2) is the following:
 
@@ -132,7 +132,7 @@ class Trajectory:
 We will create a function that takes a point as input and returns the ground distance between the initial point (defined by self) and the point added as parameter.
 
 ```python
-def get_distance(self, point2:Point):
+def get_distance(self, point2):
 	delta_lambda = math.radians(point2.latitude - self.latitude)
 	delta_phi = math.radians(point2.longitude - self.longitude)
 	a = math.sin(delta_lambda / 2) * math.sin(delta_lambda / 2) + math.cos(math.radians(self.latitude)) \
