@@ -60,6 +60,8 @@ Let&#39;s set up the tools and explore our dataset:
 ```python
 import pandas as pd
 import copy
+import matplotlib.pyplot as plt
+from numpy.random import normal
 
 file = "geolife_sample.txt.gz"
 
@@ -118,8 +120,8 @@ class Point:
 		self.latitude = latitude
 		self.longitude = longitude
 
-def __str__(self):
-	return "Point("+self.latitude+", "+self.longitude+")"
+	def __str__(self):
+		return "Point("+self.latitude+", "+self.longitude+")"
 ```
 
 Then, we can declare a class representing trajectories:
@@ -132,14 +134,14 @@ class Trajectory:
 We will create a function that takes a point as input and returns the ground distance between the initial point (defined by self) and the point added as parameter.
 
 ```python
-def get_distance(self, point2):
-	delta_lambda = math.radians(point2.latitude - self.latitude)
-	delta_phi = math.radians(point2.longitude - self.longitude)
-	a = math.sin(delta_lambda / 2) * math.sin(delta_lambda / 2) + math.cos(math.radians(self.latitude)) \
-	* math.cos(math.radians(point2.latitude)) * math.sin(delta_phi / 2) * math.sin(delta_phi / 2)
-	c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
-	distance = cls.R * c
-	return distance
+def getDistance(self, point2):
+        delta_lambda = math.radians(point2.latitude - self.latitude)
+        delta_phi = math.radians(point2.longitude - self.longitude)
+        a = math.sin(delta_lambda / 2) * math.sin(delta_lambda / 2) + math.cos(math.radians(self.latitude)) \
+        * math.cos(math.radians(point2.latitude)) * math.sin(delta_phi / 2) * math.sin(delta_phi / 2)
+        c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+        distance = cls.R * c
+        return distance
 ```
 
 Now, we have all the prerequisites to implement the code and find the distance between two trajectories. With our minimalist code, we can represent a trajectory as a list of **Point[]**. We can represent the ground distance between trajectories in a matrix.
@@ -163,11 +165,39 @@ for i in range(len(unique_uids)):
     points.clear()
 		
 ```
-The trajectories are now stored in a list called `trajectories`. 
+The trajectories are now stored in a list called `trajectories`.  After executing this code, you can see that we obtain 2 trajectories from the dataset.
+<div align="center">
+	<figure>
+  <img src="/assets/img/sample_trajectories.PNG" width="90%">
+  <figcaption>Visualisation of samples trajectories</figcaption>
+</figure>
+</div>
+
+As you can see in the figure above, the two trajectories are quite dissimilar, finding the [optimal match](https://en.wikipedia.org/wiki/Optimal_matching) using DTW gives no real interest in this case. For the purpose of this article, we will generate a new trajectory based on an existing one by adding some gaussian noise.
+We will just have to add a new method in the `Trajectory`'s class:
+```python
+def addNoise(self, mu, sigma):
+        return Trajectory([Point(i.latitude + normal(mu, sigma), i.longitude + normal(mu, sigma), i.t) for i in self.points])
+
+```
+
+Now, we can use the first trajectory from the dataset a reference, we will call it _**P**_, and we create a second trajectory _**Q**_ based on _**P**_ by using the method _**addNoise**_.
+
+```python
+P = Trajectory(trajectories[0])
+Q = P.addNoise(0, 0.0002)
+```
+
+<div align="center">
+	<figure>
+  <img src="/assets/img/similar_trajectories.PNG" width="90%">
+  <figcaption>Trajectories P and Q</figcaption>
+</figure>
+</div>
 
 ## Time complexity
 
-For two trajectories N and M, the time complexity of the DTW algorithm can be presented as *O(N M)*. Assuming that N\&gt;M, the time complexity is determined by the highest time spent to run the computation, so in this case, time complexity of the algorithm will be *O(N²)*.
+For two trajectories _**N**_ and _**M**_, the time complexity of the DTW algorithm can be presented as *O(N M)*. Assuming that _**\|N\|&gt;\|M\|**_, the time complexity is determined by the highest time spent to find the distance between the two trajectories, so in this case, time complexity of the algorithm will be *O(N²)*.
 
 DTW algorithm is known to have a quadratic time complexity that limits its use to only small time series data sets$$^3$$.
 
