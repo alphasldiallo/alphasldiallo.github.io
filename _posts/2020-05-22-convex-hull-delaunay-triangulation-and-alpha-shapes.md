@@ -10,11 +10,11 @@ tags:
 img: convex_hull.png
 ---
 
-In this article, I am going to present what is a convex hull, what is its purpose and how can we construct it in Python. Then I enter into more details by defining an Alpha Shape and using a triangulation method to construct it.
+In this article, I am going to present what is a convex hull, what is its purpose and how can we construct it in Python. Then I enter into more details by defining an Alpha Shape and constructing it using a triangulation method.
 
 ## Convex Hull
 
-The main idea behind a convex hull comes from the definition of a convex polygon. As a reminder, a convex polygon is a polygon with all its interior angles less than 180°. By using this definition, we figure out that every regular polygon is convex. If one angle has more than 180 degrees, the polygon is considered to be concave.
+The main idea behind a convex hull comes from the definition of a convex polygon. As a reminder, a convex polygon is a polygon with all its interior angles less than 180°. By using this definition, we figure out that every regular polygon is convex. If one angle has more than 180°, the polygon is considered to be concave.
 A convex hull uses the same principle as convex polygon applied to set of points. For instance, a convex hull is the smallest convex polygon containing all the points of a set.
 
 One of the purpose of a convex hull is to prune a specific area in a plane. It is mostly used in computer graphics, geometry and navigation. One interesting use case of convex hull is presented in some papers showing techniques to automatically construct indoor floorplans. One interesting case in presented in this paper written by Alzantot et al. in which they show a method to construct floorplans based on traces collected by ubiquitous sensors. In this paper, they prune a plan and focus only on the area containing the collected traces. By constructing a convex hull on the data points, they present a shape of the indoor floorplan.  Another interesting use-case is finding the farthest pair of points in a set in an efficient way. We will dive more into details in the next section when we will present some algorithms used to find convex hulls.
@@ -54,7 +54,7 @@ In this context, consider a triangulation as a partition of a polygons into nice
 1. conv(P) = ST∈TT;
 2. P =ST∈T V(T); and
 3. for every distinct pair T, U ∈ T, the intersection T ∩ U is either a common vertex, or a common edge, or empty.
-Source: https://www.ti.inf.ethz.ch/ew/Lehre/CG13/lecture/Chapter%206.pdf
+<!-- Source: https://www.ti.inf.ethz.ch/ew/Lehre/CG13/lecture/Chapter%206.pdf -->
 
 Every set P ⊆ R2 of n > 3 points has a triangulation, unless all points in P are collinear (meaning that all the points stands on the same line).
 
@@ -63,4 +63,4 @@ Every set P ⊆ R2 of n > 3 points has a triangulation, unless all points in P a
 Computing the delaunay triangulation of a point set consists in linking all the points in a way of creating triangles linking all the points then removing all the triangles for which at least one edge exceeds alpha in length.
 
 
-http://blog.thehumangeo.com/2014/05/12/drawing-boundaries-in-python/
+<!-- http://blog.thehumangeo.com/2014/05/12/drawing-boundaries-in-python/ -->
