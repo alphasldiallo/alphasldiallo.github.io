@@ -168,7 +168,7 @@ for i in range(len(unique_uids)):
 The trajectories are now stored in a list called `trajectories`.  After executing this code, you can see that we obtain 2 trajectories from the dataset.
 <div align="center">
 	<figure>
-  <img src="/assets/img/sample_trajectories.PNG" width="90%">
+  <img src="/assets/img/sample_trajectories.png" width="90%">
   <figcaption>Visualisation of samples trajectories</figcaption>
 </figure>
 </div>
@@ -190,10 +190,146 @@ Q = P.addNoise(0, 0.0002)
 
 <div align="center">
 	<figure>
-  <img src="/assets/img/similar_trajectories.PNG" width="90%">
+  <img src="/assets/img/similar_trajectories.png" width="90%">
   <figcaption>Trajectories P and Q</figcaption>
 </figure>
 </div>
+
+## Warping function
+The warping function is the function that minimizes the total distance between the points of the two given trajectories. Before defining the warping function, we will create a distance matrix between the two trajectories.
+
+<div align="center">
+	<figure>
+<table>
+    <tbody>
+        <tr>
+            <td>0.02</td>
+            <td>0.14</td>
+            <td>0.08</td>
+            <td>0.96</td>
+            <td>0.03</td>
+            <td>0.04</td>
+            <td>0.03</td>
+            <td>0.04</td>
+            <td>0.1</td>
+            <td>0.1</td>
+        </tr>
+        <tr>
+            <td>0.11</td>
+            <td>0.03</td>
+            <td>0.06</td>
+            <td>0.94</td>
+            <td>0.1</td>
+            <td>0.1</td>
+            <td>0.1</td>
+            <td>0.09</td>
+            <td>0.05</td>
+            <td>0.06</td>
+        </tr>
+        <tr>
+            <td>0.07</td>
+            <td>0.07</td>
+            <td>0.04</td>
+            <td>0.95</td>
+            <td>0.06</td>
+            <td>0.05</td>
+            <td>0.05</td>
+            <td>0.05</td>
+            <td>0.05</td>
+            <td>0.04</td>
+        </tr>
+        <tr>
+            <td>0.97</td>
+            <td>0.91</td>
+            <td>0.98</td>
+            <td>0.0</td>
+            <td>0.98</td>
+            <td>0.98</td>
+            <td>0.97</td>
+            <td>0.97</td>
+            <td>0.99</td>
+            <td>0.99</td>
+        </tr>
+        <tr>
+            <td>0.02</td>
+            <td>0.12</td>
+            <td>0.06</td>
+            <td>0.96</td>
+            <td>0.02</td>
+            <td>0.02</td>
+            <td>0.02</td>
+            <td>0.02</td>
+            <td>0.08</td>
+            <td>0.07</td>
+        </tr>
+        <tr>
+            <td>0.04</td>
+            <td>0.14</td>
+            <td>0.05</td>
+            <td>1.01</td>
+            <td>0.03</td>
+            <td>0.03</td>
+            <td>0.03</td>
+            <td>0.03</td>
+            <td>0.06</td>
+            <td>0.06</td>
+        </tr>
+        <tr>
+            <td>0.03</td>
+            <td>0.11</td>
+            <td>0.07</td>
+            <td>0.95</td>
+            <td>0.03</td>
+            <td>0.03</td>
+            <td>0.03</td>
+            <td>0.03</td>
+            <td>0.08</td>
+            <td>0.08</td>
+        </tr>
+        <tr>
+            <td>0.01</td>
+            <td>0.13</td>
+            <td>0.07</td>
+            <td>0.97</td>
+            <td>0.02</td>
+            <td>0.02</td>
+            <td>0.02</td>
+            <td>0.02</td>
+            <td>0.09</td>
+            <td>0.08</td>
+        </tr>
+        <tr>
+            <td>0.07</td>
+            <td>0.06</td>
+            <td>0.03</td>
+            <td>0.95</td>
+            <td>0.06</td>
+            <td>0.06</td>
+            <td>0.06</td>
+            <td>0.06</td>
+            <td>0.04</td>
+            <td>0.04</td>
+        </tr>
+        <tr>
+            <td>0.09</td>
+            <td>0.09</td>
+            <td>0.02</td>
+            <td>1.0</td>
+            <td>0.08</td>
+            <td>0.07</td>
+            <td>0.07</td>
+            <td>0.07</td>
+            <td>0.01</td>
+            <td>0.01</td>
+        </tr>
+    </tbody>
+</table>
+		<figcaption>Distance matrix</figcaption>
+		
+	</figure>
+	</div>
+	
+
 
 ## Time complexity
 
@@ -219,6 +355,7 @@ main disadvantage for time series data is that its results are very unintuitive.
 Figure #fig\_numb shows the results of DTW and DFD given 3 trajectories. S\_a, S\_b (uniformly sampled) and S
 
 -->
+
 
 ## References
 
