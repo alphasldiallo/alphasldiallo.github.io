@@ -3,6 +3,15 @@ title: "[Paper review] - SGX-Tor: A Secure and Practical Tor Anonymity Network W
   SGX Enclaves"
 layout: post
 img: tee.png
+tags:
+- security
+- TEE
+- Encryption
+- TOR
+- Enclaves
+- SGX
+- Intel
+- Review
 ---
 
 *S. Kim, J. Han, J. Ha, T. Kim, and D. Han, "SGX-TOR: A secure and

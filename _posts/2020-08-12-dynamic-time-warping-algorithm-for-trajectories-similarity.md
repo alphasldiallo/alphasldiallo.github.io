@@ -1,9 +1,8 @@
 ---
-title: "[Draft] Dynamic Time Warping Algorithm for trajectories similarity"
+title: Dynamic Time Warping Algorithm for trajectories similarity
 layout: post
-date: '2020-08-12 16:00:00'
-description: You’ll find this post in your `_posts` directory. Go ahead and edit it
-  and re-build the site to see your changes.
+date: '2021-03-02 16:00:00'
+description: DTW algorithm for trajectories similarity
 img: trajectories.png
 fig-caption: trajectories
 tags:
@@ -196,138 +195,150 @@ Q = P.addNoise(0, 0.0002)
 </div>
 
 ## Warping function
-The warping function is the function that minimizes the total distance between the points of the two given trajectories. Before defining the warping function, we will create a distance matrix between the two trajectories.
+The warping function is the function that minimizes the total distance between the points of the two given trajectories. Before defining the warping function, we will create a distance matrix between the two trajectories using the following code:
+
+```python
+row = []
+matrix = []
+for i in Q.points:
+    for j in P.points:
+        row.append(round(i.getDistance(j), 2))
+    matrix.append(row)
+    row = []
+
+```
 
 <div align="center">
 	<figure>
-<table>
-    <tbody>
-        <tr>
-            <td>0.02</td>
-            <td>0.14</td>
-            <td>0.08</td>
-            <td>0.96</td>
-            <td>0.03</td>
-            <td>0.04</td>
-            <td>0.03</td>
-            <td>0.04</td>
-            <td>0.1</td>
-            <td>0.1</td>
-        </tr>
-        <tr>
-            <td>0.11</td>
-            <td>0.03</td>
-            <td>0.06</td>
-            <td>0.94</td>
-            <td>0.1</td>
-            <td>0.1</td>
-            <td>0.1</td>
-            <td>0.09</td>
-            <td>0.05</td>
-            <td>0.06</td>
-        </tr>
-        <tr>
-            <td>0.07</td>
-            <td>0.07</td>
-            <td>0.04</td>
-            <td>0.95</td>
-            <td>0.06</td>
-            <td>0.05</td>
-            <td>0.05</td>
-            <td>0.05</td>
-            <td>0.05</td>
-            <td>0.04</td>
-        </tr>
-        <tr>
-            <td>0.97</td>
-            <td>0.91</td>
-            <td>0.98</td>
-            <td>0.0</td>
-            <td>0.98</td>
-            <td>0.98</td>
-            <td>0.97</td>
-            <td>0.97</td>
-            <td>0.99</td>
-            <td>0.99</td>
-        </tr>
-        <tr>
-            <td>0.02</td>
-            <td>0.12</td>
-            <td>0.06</td>
-            <td>0.96</td>
-            <td>0.02</td>
-            <td>0.02</td>
-            <td>0.02</td>
-            <td>0.02</td>
-            <td>0.08</td>
-            <td>0.07</td>
-        </tr>
-        <tr>
-            <td>0.04</td>
-            <td>0.14</td>
-            <td>0.05</td>
-            <td>1.01</td>
-            <td>0.03</td>
-            <td>0.03</td>
-            <td>0.03</td>
-            <td>0.03</td>
-            <td>0.06</td>
-            <td>0.06</td>
-        </tr>
-        <tr>
-            <td>0.03</td>
-            <td>0.11</td>
-            <td>0.07</td>
-            <td>0.95</td>
-            <td>0.03</td>
-            <td>0.03</td>
-            <td>0.03</td>
-            <td>0.03</td>
-            <td>0.08</td>
-            <td>0.08</td>
-        </tr>
-        <tr>
-            <td>0.01</td>
-            <td>0.13</td>
-            <td>0.07</td>
-            <td>0.97</td>
-            <td>0.02</td>
-            <td>0.02</td>
-            <td>0.02</td>
-            <td>0.02</td>
-            <td>0.09</td>
-            <td>0.08</td>
-        </tr>
-        <tr>
-            <td>0.07</td>
-            <td>0.06</td>
-            <td>0.03</td>
-            <td>0.95</td>
-            <td>0.06</td>
-            <td>0.06</td>
-            <td>0.06</td>
-            <td>0.06</td>
-            <td>0.04</td>
-            <td>0.04</td>
-        </tr>
-        <tr>
-            <td>0.09</td>
-            <td>0.09</td>
-            <td>0.02</td>
-            <td>1.0</td>
-            <td>0.08</td>
-            <td>0.07</td>
-            <td>0.07</td>
-            <td>0.07</td>
-            <td>0.01</td>
-            <td>0.01</td>
-        </tr>
-    </tbody>
-</table>
+	<table>
+			<tbody>
+					<tr>
+							<td>0.1</td>
+							<td>0.11</td>
+							<td>0.13</td>
+							<td>0.14</td>
+							<td>0.15</td>
+							<td>0.17</td>
+							<td>0.16</td>
+							<td>0.16</td>
+							<td>0.16</td>
+							<td>0.08</td>
+					</tr>
+					<tr>
+							<td>0.06</td>
+							<td>0.08</td>
+							<td>0.09</td>
+							<td>0.1</td>
+							<td>0.11</td>
+							<td>0.13</td>
+							<td>0.13</td>
+							<td>0.13</td>
+							<td>0.13</td>
+							<td>0.04</td>
+					</tr>
+					<tr>
+							<td>0.07</td>
+							<td>0.08</td>
+							<td>0.08</td>
+							<td>0.09</td>
+							<td>0.1</td>
+							<td>0.11</td>
+							<td>0.11</td>
+							<td>0.11</td>
+							<td>0.11</td>
+							<td>0.05</td>
+					</tr>
+					<tr>
+							<td>0.09</td>
+							<td>0.08</td>
+							<td>0.06</td>
+							<td>0.05</td>
+							<td>0.04</td>
+							<td>0.02</td>
+							<td>0.03</td>
+							<td>0.03</td>
+							<td>0.03</td>
+							<td>0.11</td>
+					</tr>
+					<tr>
+							<td>0.09</td>
+							<td>0.08</td>
+							<td>0.07</td>
+							<td>0.05</td>
+							<td>0.04</td>
+							<td>0.04</td>
+							<td>0.04</td>
+							<td>0.04</td>
+							<td>0.04</td>
+							<td>0.11</td>
+					</tr>
+					<tr>
+							<td>0.17</td>
+							<td>0.16</td>
+							<td>0.15</td>
+							<td>0.13</td>
+							<td>0.12</td>
+							<td>0.11</td>
+							<td>0.11</td>
+							<td>0.11</td>
+							<td>0.11</td>
+							<td>0.2</td>
+					</tr>
+					<tr>
+							<td>0.15</td>
+							<td>0.14</td>
+							<td>0.13</td>
+							<td>0.12</td>
+							<td>0.1</td>
+							<td>0.09</td>
+							<td>0.09</td>
+							<td>0.09</td>
+							<td>0.09</td>
+							<td>0.17</td>
+					</tr>
+					<tr>
+							<td>0.08</td>
+							<td>0.07</td>
+							<td>0.06</td>
+							<td>0.05</td>
+							<td>0.03</td>
+							<td>0.02</td>
+							<td>0.02</td>
+							<td>0.02</td>
+							<td>0.02</td>
+							<td>0.11</td>
+					</tr>
+					<tr>
+							<td>0.06</td>
+							<td>0.05</td>
+							<td>0.04</td>
+							<td>0.03</td>
+							<td>0.03</td>
+							<td>0.03</td>
+							<td>0.03</td>
+							<td>0.03</td>
+							<td>0.03</td>
+							<td>0.08</td>
+					</tr>
+					<tr>
+							<td>0.06</td>
+							<td>0.05</td>
+							<td>0.04</td>
+							<td>0.03</td>
+							<td>0.03</td>
+							<td>0.03</td>
+							<td>0.03</td>
+							<td>0.03</td>
+							<td>0.03</td>
+							<td>0.09</td>
+					</tr>
+			</tbody>
+	</table>
 		<figcaption>Distance matrix</figcaption>
-		
 	</figure>
 	</div>
+
+After building our distance matrix, we can now define a warping function that will be use to find the optimal match. 
 	
 
 
@@ -337,11 +348,11 @@ For two trajectories _**N**_ and _**M**_, the time complexity of the DTW algorit
 
 DTW algorithm is known to have a quadratic time complexity that limits its use to only small time series data sets$$^3$$.
 
-To optimize the computational time required by the DTW algorithm, some techniques have been developed such as **PruneDTW**, **SparseDTW**, **FastDTW** and the **MultiscaledDTW**. These techniques are not covered in this article. 
 
 ## Drawbacks of DTW
 
 DTW performs well for finding similarity between two trajectories if they are similar in most parts, but the main drawback of this algorithm is that DTW is sensitive to noise i.e. it gives non-meaningful results when it comes to comparing two trajectories containing significant dissimilar portions.
+Another drawback is the time complexity which can be a bottleneck for finding similarities in large datasets. Some techniques based on DTW have been developped to tackle this problem. Some of the most popular techniques are **PruneDTW**, **SparseDTW**, **FastDTW** and **MultiscaledDTW**. These techniques are not covered in this article. 
 
 ## Comparison with other similarities measures
 
