@@ -1492,3 +1492,8 @@ a.newer-posts:hover {
     font-size: 21px;
   }
 }
+
+.public-key a{
+  text-decoration: none;
+  color: #515151;
+}
