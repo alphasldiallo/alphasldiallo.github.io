@@ -394,15 +394,10 @@ By matching each point of a trajectory to another, DTW algorithm gives good resu
 
 Algorithms available for finding similarities between trajectories can be sorted by applying a trade-off between efficiency and effectiveness. Among the most efficient method in terms of performance, the Euclidean Distance ranks amongst the best. In fact, Euclidean Distance between two time series is simply the sum of the squared distances from $$n^{th}$$ point to the other. For comparing trajectories, Euclidean distance shows a great performance in terms of computational time, but its
 main disadvantage for time series data is that its results are very unintuitive. 
-It is also interesting to explore some similarity techniques for text that can be transpose to trajectories. Among those techniques, we have techniques based on Edit-distance like LCSS (Longest Common Subsequence), EDR (Edit Distance of Real Sequence), ERP (Edit Distance with Real Penalty), TWED (Time Warp Edit Distance) and EDwP (Edit Distance with Projections).
+It is also interesting to explore some similarity techniques for text that can be transpose to trajectories. Among those techniques, we have techniques based on Edit-distance like **LCSS** (Longest Common Subsequence), **EDR** (Edit Distance of Real Sequence), **ERP** (Edit Distance with Real Penalty), **TWED** (Time Warp Edit Distance) and **EDwP** (Edit Distance with Projections).
 
-<!-- Even though DTW gives a good balance between precision and computational time, so 
 
-Figure #fig\_numb shows the results of DTW and DFD given 3 trajectories. S\_a, S\_b (uniformly sampled) and S
-
--->
-
-You can find the source code of our experiments on the following link: 
+You can find the source code of our experiments on [this repository](https://github.com/alphasldiallo/traj-similarity).
 
 ## References
 
