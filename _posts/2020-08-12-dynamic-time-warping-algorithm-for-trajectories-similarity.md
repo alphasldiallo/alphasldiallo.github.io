@@ -73,7 +73,7 @@ df.head()
 <div align="center">
 	<figure>
   <img src="/assets/img/df.png">
-  <figcaption>figure 1. Result of  df.head()</figcaption>
+		<figcaption>Fig. 1: Result of  df.head()</figcaption>
 </figure>
 </div>
 
@@ -92,7 +92,7 @@ In order to find the similarity between two trajectories, we need to compute a d
 <div align="center">
 	<figure>
   <img src="/assets/img/haversine.png" width="50%">
-  <figcaption>Equation 1. Haversine Formula used to calculate the great-circle distance between two points 1 and 2</figcaption>
+  <figcaption>Eq. 1: Haversine Formula used to calculate the great-circle distance between two points 1 and 2</figcaption>
 </figure>
 </div>
 
@@ -106,7 +106,7 @@ The equation to compute the DTW P and Q (respectively u1 and u2) is the followin
 <div align="center">
 	<figure>
   <img src="/assets/img/dtw.png" width="50%">
-  <figcaption></figcaption>
+  <figcaption>Eq. 2: Formula to compute the DTW recursively</figcaption>
 </figure>
 </div>
 
@@ -168,34 +168,34 @@ The trajectories are now stored in a list called `trajectories`.  After executin
 <div align="center">
 	<figure>
   <img src="/assets/img/sample_trajectories.png" width="90%">
-  <figcaption>Visualisation of samples trajectories</figcaption>
+  <figcaption>Fig. 2: Visualisation of samples trajectories</figcaption>
 </figure>
 </div>
 
-As you can see in the figure above, the two trajectories are quite dissimilar, finding the [optimal match](https://en.wikipedia.org/wiki/Optimal_matching) using DTW gives no real interest in this case. For the purpose of this article, we will generate a new trajectory based on an existing one by adding some gaussian noise.
-We will just have to add a new method in the `Trajectory`'s class:
+As you can see in the figure above, the two trajectories are quite dissimilar, finding the [optimal match](https://en.wikipedia.org/wiki/Optimal_matching) using DTW gives no real interest in this case. For a sake of simplicity, we generate a new trajectory based on an existing one by adding some Gaussian noise.
+To achieve that, we just add a new method in the `Trajectory`'s class:
 ```python
 def addNoise(self, mu, sigma):
         return Trajectory([Point(i.latitude + normal(mu, sigma), i.longitude + normal(mu, sigma), i.t) for i in self.points])
 
 ```
 
-Now, we can use the first trajectory from the dataset a reference, we will call it _**P**_, and we create a second trajectory _**Q**_ based on _**P**_ by using the method _**addNoise**_.
+Now, we can use the first trajectory from the dataset a reference, we call it _**P**_, and we create a second trajectory _**Q**_ based on _**P**_ by using the method _**addNoise**_.
 
 ```python
 P = Trajectory(trajectories[0])
-Q = P.addNoise(0, 0.0002)
+Q = P.addNoise(0, 0.0005)
 ```
 
 <div align="center">
 	<figure>
   <img src="/assets/img/similar_trajectories.png" width="90%">
-  <figcaption>Trajectories P and Q</figcaption>
+  <figcaption>Fig. 3: Trajectories P and Q</figcaption>
 </figure>
 </div>
 
 ## Warping function
-The warping function is the function that minimizes the total distance between the points of the two given trajectories. Before defining the warping function, we will create a distance matrix between the two trajectories using the following code:
+The warping function is a function that minimizes the total distance between the points of the two given trajectories. Before defining the warping function, we will create a distance matrix between the two trajectories using the following code:
 
 ```python
 row = []
@@ -207,138 +207,140 @@ for i in Q.points:
     row = []
 
 ```
+The table below shows a sample of the distance matrix between P and Q. 
 
 <div align="center">
 	<figure>
 	<table>
-			<tbody>
-					<tr>
-							<td>0.1</td>
-							<td>0.11</td>
-							<td>0.13</td>
-							<td>0.14</td>
-							<td>0.15</td>
-							<td>0.17</td>
-							<td>0.16</td>
-							<td>0.16</td>
-							<td>0.16</td>
-							<td>0.08</td>
-					</tr>
-					<tr>
-							<td>0.06</td>
-							<td>0.08</td>
-							<td>0.09</td>
-							<td>0.1</td>
-							<td>0.11</td>
-							<td>0.13</td>
-							<td>0.13</td>
-							<td>0.13</td>
-							<td>0.13</td>
-							<td>0.04</td>
-					</tr>
-					<tr>
-							<td>0.07</td>
-							<td>0.08</td>
-							<td>0.08</td>
-							<td>0.09</td>
-							<td>0.1</td>
-							<td>0.11</td>
-							<td>0.11</td>
-							<td>0.11</td>
-							<td>0.11</td>
-							<td>0.05</td>
-					</tr>
-					<tr>
-							<td>0.09</td>
-							<td>0.08</td>
-							<td>0.06</td>
-							<td>0.05</td>
-							<td>0.04</td>
-							<td>0.02</td>
-							<td>0.03</td>
-							<td>0.03</td>
-							<td>0.03</td>
-							<td>0.11</td>
-					</tr>
-					<tr>
-							<td>0.09</td>
-							<td>0.08</td>
-							<td>0.07</td>
-							<td>0.05</td>
-							<td>0.04</td>
-							<td>0.04</td>
-							<td>0.04</td>
-							<td>0.04</td>
-							<td>0.04</td>
-							<td>0.11</td>
-					</tr>
-					<tr>
-							<td>0.17</td>
-							<td>0.16</td>
-							<td>0.15</td>
-							<td>0.13</td>
-							<td>0.12</td>
-							<td>0.11</td>
-							<td>0.11</td>
-							<td>0.11</td>
-							<td>0.11</td>
-							<td>0.2</td>
-					</tr>
-					<tr>
-							<td>0.15</td>
-							<td>0.14</td>
-							<td>0.13</td>
-							<td>0.12</td>
-							<td>0.1</td>
-							<td>0.09</td>
-							<td>0.09</td>
-							<td>0.09</td>
-							<td>0.09</td>
-							<td>0.17</td>
-					</tr>
-					<tr>
-							<td>0.08</td>
-							<td>0.07</td>
-							<td>0.06</td>
-							<td>0.05</td>
-							<td>0.03</td>
-							<td>0.02</td>
-							<td>0.02</td>
-							<td>0.02</td>
-							<td>0.02</td>
-							<td>0.11</td>
-					</tr>
-					<tr>
-							<td>0.06</td>
-							<td>0.05</td>
-							<td>0.04</td>
-							<td>0.03</td>
-							<td>0.03</td>
-							<td>0.03</td>
-							<td>0.03</td>
-							<td>0.03</td>
-							<td>0.03</td>
-							<td>0.08</td>
-					</tr>
-					<tr>
-							<td>0.06</td>
-							<td>0.05</td>
-							<td>0.04</td>
-							<td>0.03</td>
-							<td>0.03</td>
-							<td>0.03</td>
-							<td>0.03</td>
-							<td>0.03</td>
-							<td>0.03</td>
-							<td>0.09</td>
-					</tr>
-			</tbody>
-	</table>
-		<figcaption>Distance matrix</figcaption>
+    <tbody>
+        <tr>
+            <td>0.06</td>
+            <td>0.05</td>
+            <td>0.05</td>
+            <td>0.05</td>
+            <td>0.06</td>
+            <td>0.06</td>
+            <td>0.07</td>
+            <td>0.07</td>
+            <td>0.07</td>
+            <td>0.07</td>
+        </tr>
+        <tr>
+            <td>0.07</td>
+            <td>0.06</td>
+            <td>0.05</td>
+            <td>0.04</td>
+            <td>0.04</td>
+            <td>0.04</td>
+            <td>0.04</td>
+            <td>0.04</td>
+            <td>0.04</td>
+            <td>0.04</td>
+        </tr>
+        <tr>
+            <td>0.12</td>
+            <td>0.11</td>
+            <td>0.1</td>
+            <td>0.09</td>
+            <td>0.08</td>
+            <td>0.07</td>
+            <td>0.06</td>
+            <td>0.06</td>
+            <td>0.06</td>
+            <td>0.06</td>
+        </tr>
+        <tr>
+            <td>0.05</td>
+            <td>0.04</td>
+            <td>0.03</td>
+            <td>0.03</td>
+            <td>0.02</td>
+            <td>0.03</td>
+            <td>0.04</td>
+            <td>0.04</td>
+            <td>0.04</td>
+            <td>0.04</td>
+        </tr>
+        <tr>
+            <td>0.1</td>
+            <td>0.09</td>
+            <td>0.08</td>
+            <td>0.07</td>
+            <td>0.06</td>
+            <td>0.05</td>
+            <td>0.04</td>
+            <td>0.04</td>
+            <td>0.04</td>
+            <td>0.04</td>
+        </tr>
+        <tr>
+            <td>0.12</td>
+            <td>0.1</td>
+            <td>0.09</td>
+            <td>0.08</td>
+            <td>0.07</td>
+            <td>0.05</td>
+            <td>0.04</td>
+            <td>0.04</td>
+            <td>0.04</td>
+            <td>0.04</td>
+        </tr>
+        <tr>
+            <td>0.12</td>
+            <td>0.11</td>
+            <td>0.1</td>
+            <td>0.09</td>
+            <td>0.07</td>
+            <td>0.06</td>
+            <td>0.05</td>
+            <td>0.05</td>
+            <td>0.05</td>
+            <td>0.05</td>
+        </tr>
+        <tr>
+            <td>0.06</td>
+            <td>0.05</td>
+            <td>0.04</td>
+            <td>0.03</td>
+            <td>0.01</td>
+            <td>0.0</td>
+            <td>0.02</td>
+            <td>0.02</td>
+            <td>0.02</td>
+            <td>0.01</td>
+        </tr>
+        <tr>
+            <td>0.12</td>
+            <td>0.1</td>
+            <td>0.09</td>
+            <td>0.08</td>
+            <td>0.06</td>
+            <td>0.05</td>
+            <td>0.04</td>
+            <td>0.04</td>
+            <td>0.04</td>
+            <td>0.04</td>
+        </tr>
+        <tr>
+            <td>0.21</td>
+            <td>0.19</td>
+            <td>0.18</td>
+            <td>0.17</td>
+            <td>0.16</td>
+            <td>0.14</td>
+            <td>0.13</td>
+            <td>0.13</td>
+            <td>0.13</td>
+            <td>0.13</td>
+        </tr>
+    </tbody>
+</table>
+		<figcaption>Table 1: Sample of the distance matrix</figcaption>
 	</figure>
 	</div>
 
-After building our distance matrix, we can now define a warping function that will be use to find the optimal match. 
+After building our distance matrix, we can now define a warping function that will be use to find the optimal warping path in the whole distance matrix.
+
 	
 
 

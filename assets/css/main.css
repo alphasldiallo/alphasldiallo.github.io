@@ -1492,3 +1492,7 @@ a.newer-posts:hover {
     font-size: 21px;
   }
 }
+
+figcaption {
+  font-size: small;
+}
