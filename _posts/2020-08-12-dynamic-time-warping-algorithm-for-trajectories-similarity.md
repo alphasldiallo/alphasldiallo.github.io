@@ -3,7 +3,7 @@ title: Dynamic Time Warping Algorithm for trajectories similarity
 layout: post
 date: '2021-03-02 16:00:00'
 description: DTW algorithm for trajectories similarity
-img: trajectories.png
+img: trajectories.jpg
 fig-caption: trajectories
 tags:
 - Distance
@@ -207,7 +207,7 @@ for i in Q.points:
     row = []
 
 ```
-The table below shows a sample of the distance matrix between P and Q. 
+The table below shows a sample of the distance matrix between the ten first points of _**P**_ and _**Q**_. 
 
 <div align="center">
 	<figure>
@@ -339,9 +339,41 @@ The table below shows a sample of the distance matrix between P and Q.
 	</figure>
 	</div>
 
-After building our distance matrix, we can now define a warping function that will be use to find the optimal warping path in the whole distance matrix.
+After building our distance matrix, we can now define a warping function that will be used to find the optimal warping path in the whole distance matrix. 
+The warping function should take as input the accumulated distance matrix and should return a list of index pairs representing the optimal warping path.
 
-	
+```python
+def warping_path(D):
+    n = D.shape[0] - 1
+    m = D.shape[1] - 1
+    P = [(n, m)]
+    while n > 0 or m > 0:
+        if n == 0:
+            min_val = (0, m - 1)
+        elif m == 0:
+            min_val = (n - 1, 0)
+        else:
+            val = min(D[n-1, m-1], D[n-1, m], D[n, m-1])
+            if val == D[n-1, m-1]:
+                min_val = (n-1, m-1)
+            elif val == D[n-1, m]:
+                min_val = (n-1, m)
+            else:
+                min_val = (n, m-1)
+        P.append(min_val)
+        (n, m) = min_val
+    P.reverse()
+    return np.array(P)
+```
+
+For simplicity, we can illustrate the distance matrix as a confusion matrix where the darker cells represent high values while the lighter ones represent small values. Figure 3 shows the optimal warping path along the distance matrix between trajectories _**P**_ and _**Q**_.
+
+<div align="center">
+	<figure>
+  <img src="/assets/img/optimal_path.png" width="90%" alt="Illustration of the optimal warping path using DTW">
+  <figcaption>Fig. 3: Illustration of the optimal warping path</figcaption>
+</figure>
+</div>
 
 
 ## Time complexity
@@ -356,12 +388,13 @@ DTW algorithm is known to have a quadratic time complexity that limits its use t
 DTW performs well for finding similarity between two trajectories if they are similar in most parts, but the main drawback of this algorithm is that DTW is sensitive to noise i.e. it gives non-meaningful results when it comes to comparing two trajectories containing significant dissimilar portions.
 Another drawback is the time complexity which can be a bottleneck for finding similarities in large datasets. Some techniques based on DTW have been developped to tackle this problem. Some of the most popular techniques are **PruneDTW**, **SparseDTW**, **FastDTW** and **MultiscaledDTW**. These techniques are not covered in this article. 
 
-## Comparison with other similarities measures
+## Other similarities measures
 
 By matching each point of a trajectory to another, DTW algorithm gives good results with uniformly sampled trajectories. Meanwhile, with non-uniformly sampled trajectories, DTW adds up all distances between matched pairs$$^3$$.
 
-Algorithms available for finding similarities between trajectories can be sorted by applying a trade-off between efficiency and effectiveness. Among the most efficient method in terms of performance, the Euclidean Distance ranks amongst the best. In fact, Euclidean Distance between two time series is simply the sum of the squared distances from _n_th point to the other. For comparing trajectories, Euclidean distance shows a great performance in terms of computational time, but its
-main disadvantage for time series data is that its results are very unintuitive.
+Algorithms available for finding similarities between trajectories can be sorted by applying a trade-off between efficiency and effectiveness. Among the most efficient method in terms of performance, the Euclidean Distance ranks amongst the best. In fact, Euclidean Distance between two time series is simply the sum of the squared distances from $$n^{th}$$ point to the other. For comparing trajectories, Euclidean distance shows a great performance in terms of computational time, but its
+main disadvantage for time series data is that its results are very unintuitive. 
+It is also interesting to explore some similarity techniques for text that can be transpose to trajectories. Among those techniques, we have techniques based on Edit-distance like LCSS (Longest Common Subsequence), EDR (Edit Distance of Real Sequence), ERP (Edit Distance with Real Penalty), TWED (Time Warp Edit Distance) and EDwP (Edit Distance with Projections).
 
 <!-- Even though DTW gives a good balance between precision and computational time, so 
 
@@ -369,6 +402,7 @@ Figure #fig\_numb shows the results of DTW and DFD given 3 trajectories. S\_a, S
 
 -->
 
+You can find the source code of our experiments on the following link: 
 
 ## References
 
