@@ -1,5 +1,5 @@
 ---
-title: "[Paper review] - SGX-Tor: A Secure and Practical Tor Anonymity Network With
+title: "[Paper review] SGX-Tor: A Secure and Practical Tor Anonymity Network With
   SGX Enclaves"
 layout: post
 img: tee.png
