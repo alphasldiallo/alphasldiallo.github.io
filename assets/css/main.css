@@ -56,6 +56,10 @@ figure,
 main {
   /* 1 */
   display: block;
+  text-align: center;
+  text-size-adjust: auto;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 /**
