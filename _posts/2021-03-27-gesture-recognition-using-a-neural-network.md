@@ -6,9 +6,9 @@ img: gesture.jpg
 ---
 
 Gesture recognition is a fascinating area widely explored in the literature. Mainly used in Human-Computer Interaction (HCI), its goal is to infer users’ actions based on their movement. The general structure of our project for detecting gestures consists of three main steps:
-- Data acquisition. In the first step, we list all the mechanisms used for collecting movements data and saving it in a usable shape.
-- Data processing. This step includes cleaning, data analysis, and model training.
-- Interpretation. In the last step, we can judge whether our train model works well or whether we have messed up :-(
+- **Data acquisition**. In the first step, we list all the mechanisms used for collecting movements data and saving it in a usable shape.
+- **Data processing**. This step includes cleaning, data analysis, and model training.
+-** Interpretation**. In the last step, we can judge whether our trained model works well or whether we totally messed up :-(
 In this article, we will build a simple model that collects data from Inertial Measurement Unit (IMU) sensors and identifies known gestures. The rest of the article is specially dedicated to those of you born in the ’90s and/or who have a culture of arcade gaming. If it applies to you, then you probably heard about *Street Fighter II*. If words like *SNES*, *Street Fighter* or *arcade* sound unfamiliar to you, please read [this article](https://en.wikipedia.org/wiki/Street_Fighter_II).
 
 ## Data acquisition
