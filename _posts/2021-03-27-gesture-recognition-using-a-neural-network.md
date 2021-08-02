@@ -8,7 +8,7 @@ img: gesture.jpg
 Gesture recognition is a fascinating area widely explored in the literature. Mainly used in Human-Computer Interaction (HCI), its goal is to infer users’ actions based on their movement. The general structure of our project for detecting gestures consists of three main steps:
 - **Data acquisition**. In the first step, we list all the mechanisms used for collecting movements data and saving it in a usable shape.
 - **Data processing**. This step includes cleaning, data analysis, and model training.
--** Interpretation**. In the last step, we can judge whether our trained model works well or whether we totally messed up :-(
+- **Interpretation**. In the last step, we can judge whether our trained model works well or whether we totally messed up :-(
 In this article, we will build a simple model that collects data from Inertial Measurement Unit (IMU) sensors and identifies known gestures. The rest of the article is specially dedicated to those of you born in the ’90s and/or who have a culture of arcade gaming. If it applies to you, then you probably heard about *Street Fighter II*. If words like *SNES*, *Street Fighter* or *arcade* sound unfamiliar to you, please read [this article](https://en.wikipedia.org/wiki/Street_Fighter_II).
 
 ## Data acquisition
@@ -16,7 +16,7 @@ To collect data, we can use two approaches. The first one using a 3-Axis acceler
 
 ### Collecting data with an MPU6050
 If you choose to use this approach, make sure to order the correct IMU sensor. You can use this link as a reference: [MPU-6050 on Amazon](https://www.amazon.com/HiLetgo-MPU-6050-Accelerometer-Gyroscope-Converter/dp/B00LP25V1A/ref=sr_1_1?dchild=1&keywords=MPU-6050&qid=1625759114&sr=8-1).
-As you can see, it is pretty cheap do not hesitate to order several items just to be on the safe side. In this article, we will collect data from the IMU sensor through a Raspberry Pi. Make sure to have a soldering iron and some wires to connect to the GPIO port on your Raspberry, as presented below.
+As you can see, it is pretty cheap. Do not hesitate to order several items just to be on the safe side. In this article, we will collect data from the IMU sensor through a Raspberry Pi. Make sure to have a soldering iron and some wires to connect to the GPIO port on your Raspberry, as presented below.
 <figure>
 	<img src="../assets/img/RPI_mpu6050.jpg" style="height=500px; text-align:'center'" />
 	<figcaption>Wiring an MPU6050 to RPi GPIO ports</figcaption>
@@ -68,7 +68,7 @@ The gestures we will try to detect are:
 - **leftright**. The action of moving a hand (while holding the sensor) from left to right repeatedly.
 - **updown**. Same as the previous but we should move from up to down repeatedly.
 - **Hadoken**. The coolest part of this project. We just have to make (a lot of) hadokens.
-- **Idle**. We will just collect data on a flat surface. In our example, we will consider unknown actions as idle.
+- **Idle**. We will just collect data on a flat surface. For our example, we will consider unknown actions as idle.
 
 Collecting data is annoying; that is why I am sharing with you all the data you will need: [leftright](https://raw.githubusercontent.com/alphasldiallo/IMU_data/main/leftright.csv), [updown](https://raw.githubusercontent.com/alphasldiallo/IMU_data/main/updown.csv), [hadoken](https://raw.githubusercontent.com/alphasldiallo/IMU_data/main/hadoken.csv), [idle](https://raw.githubusercontent.com/alphasldiallo/IMU_data/main/idle.csv).
 
