@@ -320,7 +320,7 @@ plt.ylabel('Loss')
 plt.legend()
 plt.show()
 ```
-As we can observed from the graph below, the error gradually decreases with the number of epochs and stabilizes at some point. However, we have to be careful not to misinterpret the results; **a loss that is too low or at 0 could indicate that the model overfits**.
+As we observe on the graph below, the error gradually decreases with the number of epochs and stabilizes at some point. However, we have to be careful not to misinterpret the results; **a loss that is too low or at 0 could indicate that the model overfits**.
 
 <figure>
 <img src="../assets/img/loss.png" style="height=500px; text-align:'center'" />
@@ -340,7 +340,7 @@ Another way to assess the performance of our model is by using a [confusion matr
 	<figcaption>Confusion matrix</figcaption>
 </figure>
 
-We can observe that our model performs well in detecting some gestures such as `updown` and `hadoken`. For `leftRight`, we observe 6 *True Positives* and 2 *False Positives*. For Idle, we have 5 *True Positives* and 2 *False Positives*. 
+Our model performs well in detecting some gestures such as `updown` and `hadoken`. For `leftRight`, we observe 6 *True Positives* and 2 *False Positives*. For Idle, we have 5 *True Positives* and 2 *False Positives*. 
 To have a better understanding of the performance of our classifier, we can use the *Precision*, *Recall* and *F1-Score* computed as follows:<br>
 $$Precision = TP/(TP+FP)\\$$<br>
 $$Recall = TP/(TP+FN)\\$$<br>
