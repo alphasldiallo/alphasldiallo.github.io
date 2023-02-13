@@ -3,11 +3,11 @@ description: Alpha Diallo's personal blog
 permalink: ':title/'
 baseurl: ''
 url: alphasldiallo.github.io
-site-twitter: alphadiallo009
+site-twitter: alphadl9
 author: Alpha Diallo
 author-img: alpha-diallo.png
-about-author: PhD student - Full stack developer
-social-twitter: alphadiallo009
+about-author: PhD candidate - Full stack developer
+social-twitter: alphadl9
 social-facebook: null
 social-github: alphasldiallo
 social-linkedin: alpha-diallo-09
@@ -27,4 +27,3 @@ exclude:
   - gulpfile.js
   - package.json
   - yarn.lock
-
