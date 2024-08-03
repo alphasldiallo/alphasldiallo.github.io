@@ -8,6 +8,8 @@ tags:
 - Analysis
 - Algorithm
 img: convex_hull.png
+comments: true
+discus-identifier: convex-hull
 ---
 
 In this article, I am going to present what is a convex hull, what is its purpose and how can we construct it in Python. Then I enter into more details by defining an Alpha Shape and constructing it using a triangulation method.
