@@ -17,6 +17,7 @@ layout: default
       <ul>
         <li><a href="/">Home</a></li>
         <li><a href="/about">About me</a></li>
+        <li><a href="/public_cv.pdf">CV</a></li>
         <li><a href="/tags">Tags</a></li>
       </ul>
       
@@ -25,9 +26,7 @@ layout: default
       <h3 class="contact-title">Contact me</h3>
       <ul>
         {% if site.social-twitter %}
-          <li><a href="https://twitter.com/{{ site.social-twitter }}" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-        {% else %}
-          <li><a href="https://twitter.com/artemsheludko_" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+          <li><a href="https://twitter.com/{{ site.social-twitter }}" target="_blank"><i class="fa fa-x-twitter" aria-hidden="true"></i></a></li>
         {% endif %}
         {% if site.social-facebook %}
           <li><a href="https://facebook.com/{{ site.social-facebook }}" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
