@@ -1,0 +1,41 @@
+---
+title: Adventures
+layout: main
+permalink: "/gallery/"
+---
+
+{% assign albums = site.albums | sort: 'date' | reverse %}
+
+<section class="gallery">
+  <header class="gallery-head">
+    <h1>Adventures</h1>
+    <p>Photo albums from my travels and everyday wandering &mdash; pick one to step inside.</p>
+  </header>
+
+  {% if albums.size > 0 %}
+  <div class="album-grid">
+    {% for album in albums %}
+    <a class="album-card" href="{{ album.url | prepend: site.baseurl }}">
+      <div class="album-card__media">
+        <img src="{% include photo_url.html src=album.cover %}"
+             alt="{{ album.title }}" loading="lazy">
+        {% if album.photos and album.photos.size > 0 %}
+        <span class="album-card__count"><i class="fa fa-camera" aria-hidden="true"></i> {{ album.photos | size }}</span>
+        {% endif %}
+      </div>
+      <div class="album-card__body">
+        <h2 class="album-card__title">{{ album.title }}</h2>
+        <p class="album-card__meta">
+          {% if album.location %}<i class="fa fa-map-marker" aria-hidden="true"></i> {{ album.location }}{% endif %}
+          {% if album.location and album.date %} &middot; {% endif %}
+          {% if album.date %}{{ album.date | date: '%b %Y' }}{% endif %}
+        </p>
+        <p class="album-card__desc">{{ album.content | strip_html | normalize_whitespace | truncatewords: 22 }}</p>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="gallery-empty">No albums yet. Add one from <strong>Admin &rarr; Collections &rarr; Albums</strong>.</p>
+  {% endif %}
+</section>

@@ -1,57 +1,225 @@
 ---
-layout: post
+title: About me
+layout: main
 ---
 
-### Executive summary
-I am an IT professional with more than six years of experience in **consulting**, **software engineering**  and **project management**. I recently completed a PhD in Information Systems at the [Distributed Object Programming Lab](http://doplab.unil.ch) of HEC Lausanne (University of Lausanne - Switzerland). My area of research was related to Indoor Positioning, Human Mobility, and Distributed Systems.
+<article class="about-page">
 
-During my master's in Information Systems, I worked on indoor tracking systems by implementing a system that balanced ubiquity, accuracy, and cost. Prior to this experience, I led the development of a national portal of Investment for the Republic of Guinea and, along with a team, made a mapping of the Guinean private sector as a consultant for a World Bank Project (IDA H 8670 – GN).
+  <!-- - - - - - - - - - - Parallax hero - - - - - - - - - - -->
+  <section class="about-hero">
+    <div class="about-hero__portrait">
+      <img src="{{ '/assets/img/presentation-low-res.jpg' | prepend: site.baseurl }}"
+           alt="{{ site.author }}">
+    </div>
 
+    <div class="about-hero__text">
+      <p class="about-hero__eyebrow">PhD · Information Systems</p>
+      <h1 class="about-hero__name">{{ site.author }}</h1>
+      <p class="about-hero__role">
+        Software engineer &amp; researcher working on Indoor Positioning,
+        Human Mobility and Distributed Systems &mdash; from collecting and
+        modeling location data to delivering IT projects end to end.
+      </p>
+      <div class="about-hero__actions">
+        <a class="is-primary" href="{{ '/public_cv.pdf' | prepend: site.baseurl }}" target="_blank" rel="noopener">
+          <i class="fa fa-file-text-o" aria-hidden="true"></i> Download CV
+        </a>
+        {% if site.social-email %}
+        <a href="mailto:{{ site.social-email }}"><i class="fa fa-envelope-o" aria-hidden="true"></i> Email</a>
+        {% endif %}
+        {% if site.social-linkedin %}
+        <a href="https://in.linkedin.com/in/{{ site.social-linkedin }}" target="_blank" rel="noopener"><i class="fa fa-linkedin" aria-hidden="true"></i> LinkedIn</a>
+        {% endif %}
+        {% if site.social-github %}
+        <a href="https://github.com/{{ site.social-github }}" target="_blank" rel="noopener"><i class="fa fa-github" aria-hidden="true"></i> GitHub</a>
+        {% endif %}
+      </div>
+    </div>
+  </section>
 
-My area of expertise ranges from collecting, analyzing and modeling location data as well as managing IT projects in controlled environments.
+  <!-- - - - - - - - - - - Tabs - - - - - - - - - - -->
+  <nav class="about-tabs" role="tablist" aria-label="About sections">
+    <button class="about-tab is-active" data-tab="overview" role="tab">Overview</button>
+    <button class="about-tab" data-tab="experience" role="tab">Experience</button>
+    <button class="about-tab" data-tab="teaching" role="tab">Teaching</button>
+    <button class="about-tab" data-tab="publications" role="tab">Publications</button>
+    <button class="about-tab" data-tab="projects" role="tab">Projects</button>
+  </nav>
 
-### Experience
+  <!-- - - - - - - - - - - Panels - - - - - - - - - - -->
 
-- Integration Engineer, Switzerland, March 2025 - Now
-- Doctoral Researcher &amp; Graduate Teaching Assistant (HEC Lausanne – Switzerland), March 2020 - February 2025
-- Student Teaching Assistant (HEC Lausanne - Switzerland), November 2018 - February 2020
-- IT Business Analyst (Matchmore - Lausanne, Switzerland), June 2018 - October 2018
-- IT support (Infomaniak - Geneva, Switzerland, 40%), March 2018 - August 2018
-- Consultant, Head of the IT department (WorldBank IDA H 8670 / Private Investment Promotion Agency - Conakry, Guinea), June 2014 - November 2016
-- Co-founder &amp; Lead developer (Techevox - Conakry, Guinea), December 2015 - January 2017
+  <section class="about-panel is-active" id="overview" role="tabpanel">
+    <h2>Executive summary</h2>
+    <p>I am an IT professional with more than ten years of experience in <strong>consulting</strong>, <strong>software engineering</strong> and <strong>project management</strong>. I recently completed a PhD in Information Systems at the <a href="http://doplab.unil.ch" target="_blank" rel="noopener">Distributed Object Programming Lab</a> of HEC Lausanne (University of Lausanne &mdash; Switzerland). My area of research was related to Indoor Positioning, Human Mobility, and Distributed Systems.</p>
+    <p>During my master's in Information Systems, I worked on indoor tracking systems by implementing a system that balanced ubiquity, accuracy, and cost. Prior to this experience, I led the development of the national portal of Investment for the Republic of Guinea and, along with a team, made a mapping of the Guinean private sector as a consultant for a World Bank Project (IDA H 8670 &ndash; GN).</p>
+    <p>My area of expertise ranges from collecting, analyzing and modeling location data as well as managing IT projects.</p>
 
-### Teaching assistantships
-- [Algorithms and Computational Thinking](https://hecnet.unil.ch/hec/syllabus/descriptif/2177?dyn_lang=en) (Bachelor in Forensic science ), 2019 – 2025 (Teaching Assistant)
-- [Practical Programming in Python](https://applicationspub.unil.ch/interpub/noauth/php/Ud/ficheCours.php?v_ueid=19&v_semposselected=-1&v_langue=en&v_isinterne=&v_enstyid=63936) (Bachelor of Science in Forensic Science), 2020 - now (Teaching Assistant)
-- [Software Architectures](https://hecnet.unil.ch/hec/syllabus/descriptif/2458?dyn_lang=en) (Master of Science in Information Systems), 2019 (Student Teaching Assistant)
-- [ Introduction to Distributed Systems ](https://hecnet.unil.ch/hec/syllabus/descriptif/1463?dyn_lang=en)(Master's in Information Systems), 2018 (Student Teaching Assistant)
+    <h3>Interests</h3>
+    <ul class="about-chips">
+      <li>Robotics</li>
+      <li>Human Mobility</li>
+      <li>Distributed Systems</li>
+      <li>Indoor Positioning</li>
+      <li>Information Security &amp; Privacy</li>
+    </ul>
 
-### Thesis supervision
-* Stergios Konstantinidis (2024). Enhancing the Mobixim Framework: Interface Adjustments and Feature Implementations for Collaborative Indoor Tracking Systems.
-* Shahzeb Ahmed, (2022). Privacy risks related to Indoor Positioning Systems.
-* Sarah Büchner, (2021). Parky, an Attempt to make Cities Smarter.
+    <h3>Certifications</h3>
+    <ul class="about-list">
+			<li>Real-Time Bluetooth Networks,  The University of Texas System, <i>Issued Nov 2021</i></li>
+				<li>Prince 2 Foundation, AXELOS Global Best Practice, <i>Issued Dec 2019</i></li>
+    </ul>
+  </section>
 
+  <section class="about-panel" id="experience" role="tabpanel">
+    <h2>Experience</h2>
+    <ul class="timeline">
+      <li>
+        <span class="role">Integration Engineer | Product Owner Middleware</span>
+        <span class="meta">Romande Energie, Switzerland &middot; March 2025 &ndash; Now</span>
+      </li>
+      <li>
+        <span class="role">Doctoral Researcher &amp; Graduate Teaching Assistant</span>
+        <span class="meta">HEC Lausanne, Switzerland &middot; March 2020 &ndash; February 2025</span>
+      </li>
+      <li>
+        <span class="role">Student Teaching Assistant</span>
+        <span class="meta">HEC Lausanne, Switzerland &middot; November 2018 &ndash; February 2020</span>
+      </li>
+      <li>
+        <span class="role">IT Business Analyst</span>
+        <span class="meta">Matchmore, Lausanne, Switzerland &middot; June 2018 &ndash; October 2018</span>
+      </li>
+      <li>
+        <span class="role">IT Support (40%)</span>
+        <span class="meta">Infomaniak, Geneva, Switzerland &middot; March 2018 &ndash; August 2018</span>
+      </li>
+      <li>
+        <span class="role">Co-founder &amp; Lead Developer</span>
+        <span class="meta">Techevox, Conakry, Guinea &middot; December 2015 &ndash; January 2017</span>
+      </li>
+      <li>
+        <span class="role">Consultant &amp; Head of the IT Department</span>
+        <span class="meta">World Bank IDA H 8670 / Private Investment Promotion Agency, Conakry, Guinea &middot; June 2014 &ndash; November 2016</span>
+      </li>
+    </ul>
+  </section>
 
-### Selected Publications
--  **A. Diallo**, *Classifying, Improving and Evaluating Indoor Tracking Systems*, Doctoral Thesis, Faculty of Business and Economics (HEC), University of Lausanne, 2025. [Online]. Available: [https://serval.unil.ch/fr/notice/serval:BIB_47F76D9C7ECE](https://serval.unil.ch/fr/notice/serval:BIB_47F76D9C7ECE)
-- **A. Diallo** and **B. Garbinato**, “A Framework for Devising, Evaluating and Fine-tuning Indoor Tracking Algorithms,” in *Proc. Int. Conf. on Mobile and Ubiquitous Systems: Computing, Networking, and Services*, Cham, Switzerland: Springer Nature, 2024, to appear.
-- **A. Diallo** and **B. Garbinato**, “Drift Correction of Inertial Indoor Tracking using Peer Collaboration and Strategic Beacons Placement,” in *Proc. 2024 14th Int. Conf. on Indoor Positioning and Indoor Navigation (IPIN)*, IEEE, 2024, pp. 1–6. [Online]. Available: [https://ieeexplore.ieee.org/abstract/document/10786113/](https://ieeexplore.ieee.org/abstract/document/10786113/)
-- **A. Diallo**, **S. Konstantinidis**, and **B. Garbinato**, “A Pragmatic Trade-Off Between Deployment Cost and Location Accuracy for Indoor Tracking in Real-Life Environments,” in *Proc. 2024 Int. Conf. on Localization and GNSS (ICL-GNSS)*, Antwerp, Belgium, 2024, pp. 1–7, doi: [10.1109/ICL-GNSS60721.2024.10578486](https://doi.org/10.1109/ICL-GNSS60721.2024.10578486)
-- **A. Diallo** and **B. Garbinato**, “Decentralized Collaborative Inertial Tracking,” in *Mobile and Ubiquitous Systems: Computing, Networking and Services (MobiQuitous 2023)*, A. Zaslavsky, Z. Ning, V. Kalogeraki, D. Georgakopoulos, and P. K. Chrysanthis, Eds., Lecture Notes of the Institute for Computer Sciences, Social Informatics and Telecommunications Engineering, vol. 593, Cham: Springer, 2024, pp. 21–37. doi: [10.1007/978-3-031-63989-0_2](https://doi.org/10.1007/978-3-031-63989-0_2)
-- **A. Diallo** and **B. Garbinato**, “Mobixim: A Framework for Devising Collaborative Algorithms,” in *Proc. WiP of the 13th Int. Conf. on Indoor Positioning and Indoor Navigation (IPIN-WiP 2023)*, co-located with IPIN 2023, CEUR Workshop Proc., vol. 3581, Sep. 2023. [Online]. Available: [https://ceur-ws.org/Vol-3581/196WiP.pdf](https://ceur-ws.org/Vol-3581/196WiP.pdf)
+  <section class="about-panel" id="teaching" role="tabpanel">
+		
+		<h2>Teaching</h2>
+		<a href="https://hecnet.unil.ch/hec/syllabus/descriptif/2177?dyn_lang=en" target="_blank" rel="noopener">Algorithms and Computational Thinking</a>
+        <div class="meta">Bachelor in Forensic Science &middot; 08/2025 - 02/2026 &middot; Lecturer</div>
+		<br/>
+		
+    <h2>Teaching assistantships</h2>
+    <ul class="about-list">
+      <li>
+        <a href="https://hecnet.unil.ch/hec/syllabus/descriptif/2177?dyn_lang=en" target="_blank" rel="noopener">Algorithms and Computational Thinking</a>
+        <div class="meta">Bachelor in Forensic Science &middot; 2019 &ndash; 2025 &middot; Teaching Assistant</div>
+      </li>
+      <li>
+        <a href="https://applicationspub.unil.ch/interpub/noauth/php/Ud/ficheCours.php?v_ueid=19&amp;v_semposselected=-1&amp;v_langue=en&amp;v_isinterne=&amp;v_enstyid=63936" target="_blank" rel="noopener">Practical Programming in Python</a>
+        <div class="meta">Bachelor of Science in Forensic Science &middot; 2020 &ndash; 2025 &middot; Teaching Assistant</div>
+      </li>
+      <li>
+        <a href="https://hecnet.unil.ch/hec/syllabus/descriptif/2458?dyn_lang=en" target="_blank" rel="noopener">Software Architectures</a>
+        <div class="meta">Master of Science in Information Systems &middot; 2019 &middot; Student Teaching Assistant</div>
+      </li>
+      <li>
+        <a href="https://hecnet.unil.ch/hec/syllabus/descriptif/1463?dyn_lang=en" target="_blank" rel="noopener">Introduction to Distributed Systems</a>
+        <div class="meta">Master's in Information Systems &middot; 2018 &middot; Student Teaching Assistant</div>
+      </li>
+    </ul>
+	<br/>
+    <h2>Thesis supervision</h2>
+    <ul class="about-list">
+      <li>
+        <strong>Stergios Konstantinidis</strong> (2024)
+        <div class="meta">Enhancing the Mobixim Framework: Interface Adjustments and Feature Implementations for Collaborative Indoor Tracking Systems.</div>
+      </li>
+      <li>
+        <strong>Shahzeb Ahmed</strong> (2022)
+        <div class="meta">Privacy risks related to Indoor Positioning Systems.</div>
+      </li>
+      <li>
+        <strong>Sarah Büchner</strong> (2021)
+        <div class="meta">Parky, an Attempt to make Cities Smarter.</div>
+      </li>
+    </ul>
+  </section>
 
+  <section class="about-panel" id="publications" role="tabpanel">
+    <h2>Selected publications</h2>
+    <ul class="about-list">
+      <li>
+        <strong>A. Diallo</strong>, <em>Classifying, Improving and Evaluating Indoor Tracking Systems</em>, Doctoral Thesis, Faculty of Business and Economics (HEC), University of Lausanne, 2025.
+        <div class="meta"><a href="https://serval.unil.ch/fr/notice/serval:BIB_47F76D9C7ECE" target="_blank" rel="noopener">serval.unil.ch</a></div>
+      </li>
+      <li>
+        <strong>A. Diallo</strong> and B. Garbinato, &ldquo;A Framework for Devising, Evaluating and Fine-tuning Indoor Tracking Algorithms,&rdquo; in <em>Proc. Int. Conf. on Mobile and Ubiquitous Systems</em>, Springer Nature, 2024.
+      </li>
+      <li>
+        <strong>A. Diallo</strong> and B. Garbinato, &ldquo;Drift Correction of Inertial Indoor Tracking using Peer Collaboration and Strategic Beacons Placement,&rdquo; in <em>Proc. 14th Int. Conf. on Indoor Positioning and Indoor Navigation (IPIN)</em>, IEEE, 2024, pp. 1&ndash;6.
+        <div class="meta"><a href="https://ieeexplore.ieee.org/abstract/document/10786113/" target="_blank" rel="noopener">ieeexplore.ieee.org</a></div>
+      </li>
+      <li>
+        <strong>A. Diallo</strong>, S. Konstantinidis, and B. Garbinato, &ldquo;A Pragmatic Trade-Off Between Deployment Cost and Location Accuracy for Indoor Tracking in Real-Life Environments,&rdquo; in <em>Proc. Int. Conf. on Localization and GNSS (ICL-GNSS)</em>, Antwerp, 2024, pp. 1&ndash;7.
+        <div class="meta"><a href="https://doi.org/10.1109/ICL-GNSS60721.2024.10578486" target="_blank" rel="noopener">doi:10.1109/ICL-GNSS60721.2024.10578486</a></div>
+      </li>
+      <li>
+        <strong>A. Diallo</strong> and B. Garbinato, &ldquo;Decentralized Collaborative Inertial Tracking,&rdquo; in <em>Mobile and Ubiquitous Systems (MobiQuitous 2023)</em>, LNICST vol. 593, Springer, 2024, pp. 21&ndash;37.
+        <div class="meta"><a href="https://doi.org/10.1007/978-3-031-63989-0_2" target="_blank" rel="noopener">doi:10.1007/978-3-031-63989-0_2</a></div>
+      </li>
+      <li>
+        <strong>A. Diallo</strong> and B. Garbinato, &ldquo;Mobixim: A Framework for Devising Collaborative Algorithms,&rdquo; in <em>Proc. WiP of the 13th IPIN (IPIN-WiP 2023)</em>, CEUR Workshop Proc., vol. 3581, 2023.
+        <div class="meta"><a href="https://ceur-ws.org/Vol-3581/196WiP.pdf" target="_blank" rel="noopener">ceur-ws.org</a></div>
+      </li>
+    </ul>
+  </section>
 
-### Projects
-- [Mobixim: A framework for devising collaborative algorithm](https://mobixim.unil.ch/)
-- BLE-based Indoor Positioning System
-- Queue management system
-- [Book sharing platform](https://www.loniya.org)
-- [Portal of investment of the Republic of Guinea](https://www.invest.gov.gn)
-- [Private sector mapping, Republic of Guinea](https://apip.gov.gn/Annuaire-des-entreprises)
+  <section class="about-panel" id="projects" role="tabpanel">
+    <h2>Projects</h2>
+    <ul class="project-grid">
+      <li class="project-card">
+        <i class="fa fa-cubes" aria-hidden="true"></i>
+        <a href="https://mobixim.unil.ch/" target="_blank" rel="noopener">Mobixim &mdash; collaborative algorithms framework</a>
+      </li>
+      <li class="project-card">
+        <i class="fa fa-map-marker" aria-hidden="true"></i>
+        <span>BLE-based Indoor Positioning System</span>
+      </li>
+      <li class="project-card">
+        <i class="fa fa-list-ol" aria-hidden="true"></i>
+        <span>Queue management system</span>
+      </li>
+      <li class="project-card">
+        <i class="fa fa-book" aria-hidden="true"></i>
+        <a href="https://www.loniya.org" target="_blank" rel="noopener">Book sharing platform</a>
+      </li>
+      <li class="project-card">
+        <i class="fa fa-globe" aria-hidden="true"></i>
+        <a href="https://www.invest.gov.gn" target="_blank" rel="noopener">Portal of Investment, Rep. of Guinea</a>
+      </li>
+      <li class="project-card">
+        <i class="fa fa-sitemap" aria-hidden="true"></i>
+        <a href="https://apip.gov.gn/Annuaire-des-entreprises" target="_blank" rel="noopener">Private sector mapping, Rep. of Guinea</a>
+      </li>
+    </ul>
+  </section>
 
-### Certifications
-- Prince 2 Foundation
+</article>
 
-
-
-**Interests**: Robotics, Human Mobility, Distributed Systems, Indoor Positioning, Information Security and Privacy.
+<script>
+  (function () {
+    /* Tabs */
+    var tabs = document.querySelectorAll('.about-tab');
+    var panels = document.querySelectorAll('.about-panel');
+    function activate(id) {
+      tabs.forEach(function (t) { t.classList.toggle('is-active', t.dataset.tab === id); });
+      panels.forEach(function (p) { p.classList.toggle('is-active', p.id === id); });
+    }
+    tabs.forEach(function (t) {
+      t.addEventListener('click', function () { activate(t.dataset.tab); });
+    });
+  })();
+</script>

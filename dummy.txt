@@ -1,1 +1,5 @@
 bundle exec jekyll serve --port 4000
+
+# Commands to run after each clone
+git config core.hooksPath scripts/hooks
+python3 -m pip install --user Pillow

@@ -9,6 +9,13 @@
     {{ content }}
   </div>
   
+  <script>
+    function toggleSidebar(btn) {
+      var collapsed = document.documentElement.classList.toggle('sidebar-collapsed');
+      if (btn) { btn.setAttribute('aria-expanded', String(!collapsed)); }
+      try { localStorage.setItem('sidebar', collapsed ? 'collapsed' : 'open'); } catch (e) {}
+    }
+  </script>
   {% include analytics.html %}
 </body>
 </html>

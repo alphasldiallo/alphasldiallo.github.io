@@ -1,0 +1,135 @@
+---
+layout: main
+---
+
+<article class="album">
+  <a class="album-back" href="{{ '/gallery/' | prepend: site.baseurl }}">
+    <i class="fa fa-angle-left" aria-hidden="true"></i> All albums
+  </a>
+
+  <header class="album-hero">
+    <div class="album-hero__cover">
+      <img src="{% include photo_url.html src=page.cover %}" alt="{{ page.title }}">
+    </div>
+    <div class="album-hero__text">
+      <h1>{{ page.title }}</h1>
+      <p class="album-hero__meta">
+        {% if page.location %}<i class="fa fa-map-marker" aria-hidden="true"></i> {{ page.location }}{% endif %}
+        {% if page.location and page.date %} &middot; {% endif %}
+        {% if page.date %}{{ page.date | date: '%B %Y' }}{% endif %}
+        {% if page.photos and page.photos.size > 0 %} &middot; {{ page.photos | size }} photos{% endif %}
+      </p>
+      <div class="album-hero__desc">{{ content }}</div>
+    </div>
+  </header>
+
+  {% if page.photos and page.photos.size > 0 %}
+  <div class="gallery-grid album-photos">
+    {% for photo in page.photos %}
+    <figure class="gallery-card" data-index="{{ forloop.index0 }}" tabindex="0"
+            role="button" aria-label="Open photo {{ forloop.index }}">
+      <div class="gallery-card__media">
+        <img src="{% include photo_url.html src=photo.image %}"
+             alt="{{ photo.caption | strip_html }}" loading="lazy">
+      </div>
+      {% if photo.caption %}
+      <figcaption class="gallery-card__cap">
+        <span class="gallery-card__desc">{{ photo.caption }}</span>
+      </figcaption>
+      {% endif %}
+    </figure>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="gallery-empty">This album has no photos yet. Add some to the
+    <strong>photos</strong> list from the admin.</p>
+  {% endif %}
+</article>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" data-base="{{ site.baseurl }}" data-title="{{ page.title }}"
+     aria-hidden="true" role="dialog" aria-modal="true">
+  <button class="lightbox__close" type="button" aria-label="Close">&times;</button>
+  <button class="lightbox__nav lightbox__prev" type="button" aria-label="Previous">&#8249;</button>
+  <button class="lightbox__nav lightbox__next" type="button" aria-label="Next">&#8250;</button>
+  <div class="lightbox__panel">
+    <div class="lightbox__media"><img id="lb-img" src="" alt=""></div>
+    <div class="lightbox__story">
+      <h2 id="lb-title"></h2>
+      <p class="lightbox__meta" id="lb-meta"></p>
+      <div class="lightbox__text" id="lb-text"></div>
+    </div>
+  </div>
+</div>
+
+<script id="album-data" type="application/json">[
+{% for photo in page.photos %}{% capture _src %}{% include photo_url.html src=photo.image %}{% endcapture %}{
+"src": {{ _src | strip | jsonify }},
+"caption": {{ photo.caption | jsonify }}
+}{% unless forloop.last %},{% endunless %}
+{% endfor %}]</script>
+<script>
+  (function () {
+    var dataEl = document.getElementById('album-data');
+    var lb = document.getElementById('lightbox');
+    if (!dataEl || !lb) return;
+
+    var data = [];
+    try { data = JSON.parse(dataEl.textContent) || []; } catch (e) { data = []; }
+    if (!data.length) return;
+
+    var albumTitle = lb.getAttribute('data-title') || '';
+    var img = document.getElementById('lb-img');
+    var elTitle = document.getElementById('lb-title');
+    var elMeta = document.getElementById('lb-meta');
+    var elText = document.getElementById('lb-text');
+    var btnPrev = lb.querySelector('.lightbox__prev');
+    var btnNext = lb.querySelector('.lightbox__next');
+    var current = 0;
+
+    function open(i) {
+      current = (i + data.length) % data.length;
+      var it = data[current];
+      img.src = it.src;
+      img.alt = it.caption || '';
+      elTitle.textContent = albumTitle;
+      elMeta.textContent = 'Photo ' + (current + 1) + ' of ' + data.length;
+      elText.innerHTML = '';
+      if (it.caption) {
+        var p = document.createElement('p');
+        p.textContent = it.caption;
+        elText.appendChild(p);
+      }
+      var multi = data.length > 1;
+      btnPrev.style.display = multi ? '' : 'none';
+      btnNext.style.display = multi ? '' : 'none';
+      lb.classList.add('is-open');
+      lb.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function close() {
+      lb.classList.remove('is-open');
+      lb.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('.album-photos .gallery-card').forEach(function (card) {
+      card.addEventListener('click', function () { open(parseInt(card.dataset.index, 10)); });
+      card.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(parseInt(card.dataset.index, 10)); }
+      });
+    });
+
+    lb.querySelector('.lightbox__close').addEventListener('click', close);
+    btnPrev.addEventListener('click', function (e) { e.stopPropagation(); open(current - 1); });
+    btnNext.addEventListener('click', function (e) { e.stopPropagation(); open(current + 1); });
+    lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+    document.addEventListener('keydown', function (e) {
+      if (!lb.classList.contains('is-open')) return;
+      if (e.key === 'Escape') close();
+      else if (e.key === 'ArrowLeft') open(current - 1);
+      else if (e.key === 'ArrowRight') open(current + 1);
+    });
+  })();
+</script>

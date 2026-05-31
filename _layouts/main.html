@@ -2,6 +2,11 @@
 layout: default
 ---
 
+<button type="button" class="sidebar-toggle" aria-label="Hide or show sidebar" onclick="toggleSidebar(this)">
+  <i class="fa fa-angle-left sidebar-toggle__open" aria-hidden="true"></i>
+  <i class="fa fa-angle-right sidebar-toggle__closed" aria-hidden="true"></i>
+</button>
+
 <aside class="sidebar">
   <header>
     <div class="about">
@@ -15,11 +20,12 @@ layout: default
   <footer>
     <section class="menu">
       <ul>
-        <li><a href="/about">About me</a></li>
-        <li><a href="/tags">Tags</a></li>
-        <li><a href="/public_cv.pdf">CV</a></li>
+        <li><a href="/about" title="About me"><i class="fa fa-user-o" aria-hidden="true"></i><span class="menu-label">About me</span></a></li>
+        <li><a href="/gallery" title="Adventures"><i class="fa fa-camera" aria-hidden="true"></i><span class="menu-label">Adventures</span></a></li>
+        <li><a href="/tags" title="Tags"><i class="fa fa-tags" aria-hidden="true"></i><span class="menu-label">Tags</span></a></li>
+        <li><a href="/public_cv.pdf" title="CV"><i class="fa fa-file-text-o" aria-hidden="true"></i><span class="menu-label">CV</span></a></li>
       </ul>
-      
+
     </section>
     <section class="contact">
       <h3 class="contact-title">Contact me</h3>

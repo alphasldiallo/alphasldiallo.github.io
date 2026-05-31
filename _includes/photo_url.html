@@ -1,0 +1,11 @@
+{%- comment -%}
+Normalises an album image path into a site URL, accepting any of:
+  gallery/x.jpg            (relative to assets/img/)
+  x.jpg                    (relative to assets/img/)
+  assets/img/gallery/x.jpg (full project path)
+  /assets/img/gallery/x.jpg
+  https://.../x.jpg        (left as-is)
+Usage:  {% include photo_url.html src=photo.image %}
+{%- endcomment -%}
+{%- assign _src = include.src | strip -%}
+{%- if _src contains '://' -%}{{- _src -}}{%- else -%}{%- assign _first = _src | slice: 0, 1 -%}{%- if _first == '/' -%}{%- assign _clean = _src | slice: 1, 100000 -%}{%- else -%}{%- assign _clean = _src -%}{%- endif -%}{%- assign _head = _clean | slice: 0, 7 -%}{%- if _head == 'assets/' -%}{{- _clean | prepend: '/' | prepend: site.baseurl -}}{%- else -%}{{- _clean | prepend: '/assets/img/' | prepend: site.baseurl -}}{%- endif -%}{%- endif -%}

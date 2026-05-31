@@ -6,7 +6,7 @@ url: alphasldiallo.github.io
 relative_url: https://alphasldiallo.github.io
 author: Alpha Diallo
 author-img: alpha-diallo.png
-about-author: PhD - Information Systems | Software Engineer
+about-author: PhD in Information Systems <br/> Software Engineer
 social-twitter: alphadl9
 social-github: alphasldiallo
 social-linkedin: alpha-diallo-09
@@ -22,6 +22,28 @@ plugins:
   - jekyll-seo-tag
 paginate: 8
 paginate_path: '/page/:num'
+
+# Each "album" is one document in this collection, managed from the admin UI
+# (Admin -> Collections -> Albums -> "New document"). Every album has a cover
+# image, a description (the document body) and a list of captioned photos, and
+# gets its own page at /gallery/<name>/.
+collections:
+  albums:
+    output: true
+    permalink: /gallery/:name/
+
+# Pre-fill the admin form for a new album with the fields it expects.
+defaults:
+  - scope:
+      path: ''
+      type: albums
+    values:
+      layout: album
+      title: ''
+      location: ''
+      cover: ''
+      photos: []
+
 exclude:
   - node_modules
   - gulpfile.js

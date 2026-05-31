@@ -74,14 +74,25 @@
 	<link rel="apple-touch-icon" sizes="72x72" href="{{ "/assets/img/favicon/apple-touch-icon-72x72.png" | prepend: site.baseurl }}">
 	<link rel="apple-touch-icon" sizes="144x144" href="{{ "/assets/img/favicon/apple-touch-icon-144x144.png" | prepend: site.baseurl }}">
 	<!-- Chrome, Firefox OS and Opera -->
-	<meta name="theme-color" content="#263959">
+	<meta name="theme-color" content="#4f46e5">
 	<!-- Windows Phone -->
-	<meta name="msapplication-navbutton-color" content="#263959">
+	<meta name="msapplication-navbutton-color" content="#4f46e5">
 	<!-- iOS Safari -->
-	<meta name="apple-mobile-web-app-status-bar-style" content="#263959">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#4f46e5">
+	<!-- Restore sidebar state before paint to avoid layout jump -->
+	<script>
+	  (function () {
+	    try {
+	      if (localStorage.getItem('sidebar') === 'collapsed') {
+	        document.documentElement.classList.add('sidebar-collapsed');
+	      }
+	    } catch (e) {}
+	  })();
+	</script>
 	<!-- Google Fonts -->
-	<link href="https://fonts.googleapis.com/css?family=PT+Serif:400,700" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 	<!-- Font Awesome -->
 	<link rel="stylesheet" href="{{ "/assets/fonts/font-awesome/css/font-awesome.min.css" | prepend: site.baseurl }}">
 	<!-- Styles -->

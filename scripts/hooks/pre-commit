@@ -1,0 +1,23 @@
+#!/bin/sh
+#
+# Auto-stamp the copyright into any new or changed gallery photos before they
+# are committed, then re-stage them so the watermarked versions are what gets
+# committed.
+#
+# Enable once per clone with:
+#     git config core.hooksPath scripts/hooks
+#
+# Requires Pillow:  python3 -m pip install --user Pillow
+
+ROOT="$(git rev-parse --show-toplevel)"
+
+if command -v python3 >/dev/null 2>&1; then
+  if python3 -c "import PIL" >/dev/null 2>&1; then
+    python3 "$ROOT/scripts/watermark_images.py" --quiet || true
+    git add "$ROOT/assets/img/gallery" "$ROOT/scripts/.watermark-manifest.json" >/dev/null 2>&1 || true
+  else
+    echo "pre-commit: Pillow not installed; skipping watermark (run: python3 -m pip install --user Pillow)" >&2
+  fi
+fi
+
+exit 0
