@@ -6,7 +6,7 @@ date: '2024-07-22'
 cover: gallery/landscape-leman.jpeg
 photos:
 - image: assets/img/gallery/landscape-lac-gruyère.jpeg
-  caption: Petit tour solo à vélo du magnifique lac de la Gruyère
+  caption: Petit tour du magnifique lac de la Gruyère
 - image: assets/img/gallery/landscape-dry-lake.JPG
   caption: Contraste entre le lit du Lac de la Gruyère asséché, de la verdure et du
     majestueux Moléson en fond
