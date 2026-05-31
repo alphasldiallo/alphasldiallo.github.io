@@ -391,16 +391,24 @@
   }
   .lightbox {
     padding: 0;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: rgba(9, 11, 15, 0.92);
     &__panel {
+      position: fixed;
+      inset: 0;
+      width: auto;
+      height: auto;
+      max-width: none;
+      max-height: none;
       grid-template-columns: 1fr;
       grid-template-rows: auto 1fr;
-      max-height: 100vh;
-      height: 100%;
       border-radius: 0;
     }
-    &__media { max-height: 45vh; img { max-height: 45vh; } }
-    &__story { padding: 24px 22px; }
+    &__media { max-height: 42vh; img { max-height: 42vh; } }
+    &__story { padding: 22px 20px; }
     &__nav { top: auto; bottom: 16px; transform: none; }
+    &__close { top: 12px; right: 14px; }
   }
 }
 @media only screen and (max-width: 760px) {

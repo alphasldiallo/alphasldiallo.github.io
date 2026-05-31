@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*! normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */
 /* Document
    ========================================================================== */
@@ -833,80 +834,89 @@ table tbody tr:hover {
   display: none;
 }
 
-html.sidebar-collapsed {
-  /* Toggle icon swaps to "expand" */
+/* Desktop-only: the slim icon rail. On mobile the sidebar is an off-canvas
+   drawer instead (see _media.scss), so these rules must not apply there. */
+@media (min-width: 769px) {
+  html.sidebar-collapsed {
+    /* Toggle icon swaps to "expand" */
+  }
+  html.sidebar-collapsed .sidebar-toggle__open {
+    display: none;
+  }
+  html.sidebar-collapsed .sidebar-toggle__closed {
+    display: inline-block;
+  }
+  html.sidebar-collapsed .sidebar-toggle {
+    left: 20px;
+  }
+  html.sidebar-collapsed {
+    /* Collapse the sidebar into a slim icon rail */
+  }
+  html.sidebar-collapsed .sidebar {
+    width: 78px;
+    padding: 62px 9px 16px;
+    transform: none;
+  }
+  html.sidebar-collapsed .content-box {
+    padding-left: calc(78px + 30px);
+  }
+  html.sidebar-collapsed {
+    /* Small logo only */
+  }
+  html.sidebar-collapsed .about {
+    margin-bottom: 22px;
+  }
+  html.sidebar-collapsed .about .cover-author-image {
+    width: 46px;
+    height: 46px;
+    margin-bottom: 0;
+  }
+  html.sidebar-collapsed .about .author-name,
+  html.sidebar-collapsed .about p {
+    display: none;
+  }
+  html.sidebar-collapsed {
+    /* Icon-only menu */
+  }
+  html.sidebar-collapsed .menu {
+    margin-bottom: 18px;
+  }
+  html.sidebar-collapsed .menu a {
+    gap: 0;
+    padding: 11px 0;
+    font-size: 18px;
+  }
+  html.sidebar-collapsed .menu a i {
+    display: inline-block;
+    width: auto;
+  }
+  html.sidebar-collapsed .menu .menu-label {
+    display: none;
+  }
+  html.sidebar-collapsed {
+    /* Stacked social icons, hide labels and meta */
+  }
+  html.sidebar-collapsed .contact .contact-title {
+    display: none;
+  }
+  html.sidebar-collapsed .contact ul {
+    margin-bottom: 8px;
+  }
+  html.sidebar-collapsed .contact li {
+    display: block;
+    margin: 0 0 6px;
+  }
+  html.sidebar-collapsed .contact li a {
+    margin: 0 auto;
+  }
+  html.sidebar-collapsed .public-key,
+  html.sidebar-collapsed footer .copyright {
+    display: none;
+  }
 }
-html.sidebar-collapsed .sidebar-toggle__open {
-  display: none;
-}
-html.sidebar-collapsed .sidebar-toggle__closed {
-  display: inline-block;
-}
-html.sidebar-collapsed .sidebar-toggle {
-  left: 20px;
-}
-html.sidebar-collapsed {
-  /* Collapse the sidebar into a slim icon rail */
-}
-html.sidebar-collapsed .sidebar {
-  width: 78px;
-  padding: 62px 9px 16px;
-  transform: none;
-}
-html.sidebar-collapsed .content-box {
-  padding-left: calc(78px + 30px);
-}
-html.sidebar-collapsed {
-  /* Small logo only */
-}
-html.sidebar-collapsed .about {
-  margin-bottom: 22px;
-}
-html.sidebar-collapsed .about .cover-author-image {
-  width: 46px;
-  height: 46px;
-  margin-bottom: 0;
-}
-html.sidebar-collapsed .about .author-name,
-html.sidebar-collapsed .about p {
-  display: none;
-}
-html.sidebar-collapsed {
-  /* Icon-only menu */
-}
-html.sidebar-collapsed .menu {
-  margin-bottom: 18px;
-}
-html.sidebar-collapsed .menu a {
-  gap: 0;
-  padding: 11px 0;
-  font-size: 18px;
-}
-html.sidebar-collapsed .menu a i {
-  display: inline-block;
-  width: auto;
-}
-html.sidebar-collapsed .menu .menu-label {
-  display: none;
-}
-html.sidebar-collapsed {
-  /* Stacked social icons, hide labels and meta */
-}
-html.sidebar-collapsed .contact .contact-title {
-  display: none;
-}
-html.sidebar-collapsed .contact ul {
-  margin-bottom: 8px;
-}
-html.sidebar-collapsed .contact li {
-  display: block;
-  margin: 0 0 6px;
-}
-html.sidebar-collapsed .contact li a {
-  margin: 0 auto;
-}
-html.sidebar-collapsed .public-key,
-html.sidebar-collapsed footer .copyright {
+/* Mobile top bar + drawer backdrop — shown only on small screens (_media.scss) */
+.topbar,
+.nav-backdrop {
   display: none;
 }
 
@@ -2200,27 +2210,38 @@ a.older-posts:hover, a.newer-posts:hover {
   }
   .lightbox {
     padding: 0;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: rgba(9, 11, 15, 0.92);
   }
   .lightbox__panel {
+    position: fixed;
+    inset: 0;
+    width: auto;
+    height: auto;
+    max-width: none;
+    max-height: none;
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr;
-    max-height: 100vh;
-    height: 100%;
     border-radius: 0;
   }
   .lightbox__media {
-    max-height: 45vh;
+    max-height: 42vh;
   }
   .lightbox__media img {
-    max-height: 45vh;
+    max-height: 42vh;
   }
   .lightbox__story {
-    padding: 24px 22px;
+    padding: 22px 20px;
   }
   .lightbox__nav {
     top: auto;
     bottom: 16px;
     transform: none;
+  }
+  .lightbox__close {
+    top: 12px;
+    right: 14px;
   }
 }
 @media only screen and (max-width: 760px) {
@@ -2248,40 +2269,134 @@ a.older-posts:hover, a.newer-posts:hover {
     padding-right: 28px;
   }
 }
-/* Small Devices, Tablets */
+/* Small Devices, Tablets & Phones */
 @media only screen and (max-width: 768px) {
-  .sidebar {
-    position: relative;
-    flex-direction: column;
-    width: 100%;
-    height: auto;
-    padding: 24px 16px 16px;
-    border-right: 0;
+  /* The desktop rail toggle is replaced by the top-bar hamburger */
+  .sidebar-toggle {
+    display: none;
+  }
+  /* Sticky compact top bar */
+  .topbar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: sticky;
+    top: 0;
+    z-index: 80;
+    height: 56px;
+    padding: 0 10px;
+    background: var(--surface);
     border-bottom: 1px solid var(--border);
   }
-  .sidebar footer {
-    margin-bottom: 6px;
+  .topbar__toggle {
+    flex: 0 0 auto;
+    width: 42px;
+    height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    background: none;
+    color: var(--text);
+    font-size: 20px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .topbar__toggle .topbar__icon-close {
+    display: none;
+  }
+  .topbar__brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    color: var(--heading);
+    text-decoration: none;
+  }
+  .topbar__brand img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .topbar__brand span {
+    font-family: "Fraunces", "PT Serif", Georgia, "Times New Roman", serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  html.nav-open .topbar__toggle .topbar__icon-open {
+    display: none;
+  }
+  html.nav-open .topbar__toggle .topbar__icon-close {
+    display: inline-block;
+  }
+  /* Dim backdrop behind the open drawer */
+  .nav-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    background: rgba(8, 11, 16, 0.45);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s cubic-bezier(0.22, 0.61, 0.36, 1), visibility 0.25s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  html.nav-open .nav-backdrop {
+    opacity: 1;
+    visibility: visible;
+  }
+  /* Sidebar becomes a slide-in off-canvas drawer */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    height: 100%;
+    width: 280px;
+    max-width: 84vw;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 70px 24px 24px;
+    border-right: 1px solid var(--border);
+    border-bottom: 0;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
+    z-index: 70;
+    overflow-y: auto;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.22);
+  }
+  html.nav-open .sidebar {
+    transform: none;
+  }
+  /* Neutralise the desktop rail state if it lingers from a wider viewport */
+  html.sidebar-collapsed .sidebar {
+    width: 280px;
+    transform: translateX(-100%);
+  }
+  html.sidebar-collapsed.nav-open .sidebar {
+    transform: none;
   }
   .about {
-    max-width: 480px;
-    margin: 6px auto 18px;
+    max-width: 100%;
+    margin: 4px 0 22px;
   }
   .about img {
-    width: 100px;
-    height: 100px;
+    width: 88px;
+    height: 88px;
   }
   .menu ul {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 6px;
+    display: block;
   }
-  .menu ul a {
-    margin-bottom: 0;
+  .menu a {
+    margin-bottom: 6px;
   }
-  .content-box {
-    padding: 24px 16px;
-    padding-left: 16px;
+  /* Content fills the width below the top bar */
+  .content-box,
+  html.sidebar-collapsed .content-box {
+    padding: 22px 16px;
     max-width: 100%;
   }
   .post {
@@ -2298,29 +2413,29 @@ a.older-posts:hover, a.newer-posts:hover {
     font-size: 20px;
   }
   .header-page {
-    padding: 0 20px;
-    margin-top: 28px;
+    padding: 0 16px;
+    margin-top: 18px;
   }
   .header-page .page-title {
     font-size: 1.9rem;
   }
   .wrap-content {
-    padding: 8px 20px 28px;
+    padding: 8px 18px 26px;
+  }
+  .wrap-content table {
+    display: block;
+    overflow-x: auto;
   }
   .blog-tags {
-    padding: 26px 18px;
+    padding: 22px 16px;
+  }
+  /* Keep the About tab bar below the sticky top bar */
+  .about-tabs {
+    top: 64px;
   }
   .contact .contact-title::before,
   .contact .contact-title::after {
     display: none;
-  }
-  /* Sidebar is in-flow on mobile: collapse by removing it entirely */
-  html.sidebar-collapsed .sidebar {
-    display: none;
-  }
-  html.sidebar-collapsed .content-box {
-    padding-top: 62px;
-    padding-left: 16px;
   }
 }
 /* Extra Small Devices, Phones */
@@ -2337,5 +2452,23 @@ a.older-posts:hover, a.newer-posts:hover {
   .page-footer {
     flex-direction: column;
     align-items: flex-start;
+    gap: 12px;
+  }
+  .gallery-head h1 {
+    font-size: 1.9rem;
+  }
+  .album-hero__text h1 {
+    font-size: 1.8rem;
+  }
+  .header-page .page-title {
+    font-size: 1.7rem;
+  }
+  .about-hero__name {
+    font-size: 2rem;
+  }
+  /* Comfortable tap targets for the social icons */
+  .contact ul li a {
+    width: 40px;
+    height: 40px;
   }
 }

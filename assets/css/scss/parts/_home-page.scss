@@ -47,6 +47,9 @@
 
 $rail-width: 78px;
 
+/* Desktop-only: the slim icon rail. On mobile the sidebar is an off-canvas
+   drawer instead (see _media.scss), so these rules must not apply there. */
+@media (min-width: 769px) {
 html.sidebar-collapsed {
   /* Toggle icon swaps to "expand" */
   .sidebar-toggle__open { display: none; }
@@ -97,6 +100,11 @@ html.sidebar-collapsed {
   .public-key,
   footer .copyright { display: none; }
 }
+}
+
+/* Mobile top bar + drawer backdrop — shown only on small screens (_media.scss) */
+.topbar,
+.nav-backdrop { display: none; }
 
 .about {
   margin: 0 0 32px;

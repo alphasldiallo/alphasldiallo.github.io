@@ -10,11 +10,33 @@
   </div>
   
   <script>
+    // Desktop: collapse the sidebar to a slim icon rail (remembered).
     function toggleSidebar(btn) {
       var collapsed = document.documentElement.classList.toggle('sidebar-collapsed');
       if (btn) { btn.setAttribute('aria-expanded', String(!collapsed)); }
       try { localStorage.setItem('sidebar', collapsed ? 'collapsed' : 'open'); } catch (e) {}
     }
+
+    // Mobile: open/close the off-canvas navigation drawer.
+    function toggleNav(btn) {
+      var open = document.documentElement.classList.toggle('nav-open');
+      document.body.style.overflow = open ? 'hidden' : '';
+      if (btn) { btn.setAttribute('aria-expanded', String(open)); }
+    }
+    function closeNav() {
+      document.documentElement.classList.remove('nav-open');
+      document.body.style.overflow = '';
+      var t = document.querySelector('.topbar__toggle');
+      if (t) { t.setAttribute('aria-expanded', 'false'); }
+    }
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && document.documentElement.classList.contains('nav-open')) closeNav();
+    });
+    // Close the drawer after tapping a navigation link.
+    document.addEventListener('click', function (e) {
+      var link = e.target.closest && e.target.closest('.sidebar a');
+      if (link) closeNav();
+    });
   </script>
   {% include analytics.html %}
 </body>

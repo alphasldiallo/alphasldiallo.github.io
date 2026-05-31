@@ -7,6 +7,18 @@ layout: default
   <i class="fa fa-angle-right sidebar-toggle__closed" aria-hidden="true"></i>
 </button>
 
+<header class="topbar">
+  <button type="button" class="topbar__toggle" aria-label="Toggle menu" aria-expanded="false" onclick="toggleNav(this)">
+    <i class="fa fa-bars topbar__icon-open" aria-hidden="true"></i>
+    <i class="fa fa-times topbar__icon-close" aria-hidden="true"></i>
+  </button>
+  <a class="topbar__brand" href="{{ site.baseurl }}/">
+    <img src="{{ site.baseurl }}/assets/img/{% if site.author-img %}{{ site.author-img }}{% endif %}" alt="{{ site.author }}">
+    <span>{{ site.author }}</span>
+  </a>
+</header>
+<div class="nav-backdrop" onclick="closeNav()" aria-hidden="true"></div>
+
 <aside class="sidebar">
   <header>
     <div class="about">

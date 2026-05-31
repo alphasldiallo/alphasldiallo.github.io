@@ -10,35 +10,111 @@
   .wrap-content, .header-page { padding-left: 28px; padding-right: 28px; }
 }
 
-/* Small Devices, Tablets */
+/* Small Devices, Tablets & Phones */
 @media only screen and (max-width: 768px) {
-  .sidebar {
-    position: relative;
-    flex-direction: column;
-    width: 100%;
-    height: auto;
-    padding: 24px 16px 16px;
-    border-right: 0;
-    border-bottom: 1px solid var(--border);
+  /* The desktop rail toggle is replaced by the top-bar hamburger */
+  .sidebar-toggle { display: none; }
 
-    footer { margin-bottom: 6px; }
-  }
-  .about {
-    max-width: 480px;
-    margin: 6px auto 18px;
-    img { width: 100px; height: 100px; }
-  }
-  .menu ul {
+  /* Sticky compact top bar */
+  .topbar {
     display: flex;
-    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    position: sticky;
+    top: 0;
+    z-index: 80;
+    height: 56px;
+    padding: 0 10px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+  .topbar__toggle {
+    flex: 0 0 auto;
+    width: 42px;
+    height: 42px;
+    display: inline-flex;
+    align-items: center;
     justify-content: center;
-    gap: 6px;
-    a { margin-bottom: 0; }
+    border: 0;
+    background: none;
+    color: var(--text);
+    font-size: 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    .topbar__icon-close { display: none; }
+  }
+  .topbar__brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    color: var(--heading);
+    text-decoration: none;
+    img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
+    span {
+      font-family: $font-serif;
+      font-weight: 600;
+      font-size: 1.05rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+  html.nav-open .topbar__toggle {
+    .topbar__icon-open { display: none; }
+    .topbar__icon-close { display: inline-block; }
   }
 
-  .content-box {
-    padding: 24px 16px;
-    padding-left: 16px;
+  /* Dim backdrop behind the open drawer */
+  .nav-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    background: rgba(8, 11, 16, 0.45);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s $ease, visibility 0.25s $ease;
+  }
+  html.nav-open .nav-backdrop { opacity: 1; visibility: visible; }
+
+  /* Sidebar becomes a slide-in off-canvas drawer */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    height: 100%;
+    width: 280px;
+    max-width: 84vw;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 70px 24px 24px;
+    border-right: 1px solid var(--border);
+    border-bottom: 0;
+    transform: translateX(-100%);
+    transition: transform 0.3s $ease;
+    z-index: 70;
+    overflow-y: auto;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.22);
+  }
+  html.nav-open .sidebar { transform: none; }
+  /* Neutralise the desktop rail state if it lingers from a wider viewport */
+  html.sidebar-collapsed .sidebar { width: 280px; transform: translateX(-100%); }
+  html.sidebar-collapsed.nav-open .sidebar { transform: none; }
+
+  .about {
+    max-width: 100%;
+    margin: 4px 0 22px;
+    img { width: 88px; height: 88px; }
+  }
+  .menu ul { display: block; }
+  .menu a { margin-bottom: 6px; }
+
+  /* Content fills the width below the top bar */
+  .content-box,
+  html.sidebar-collapsed .content-box {
+    padding: 22px 16px;
     max-width: 100%;
   }
 
@@ -52,21 +128,19 @@
   }
 
   .header-page {
-    padding: 0 20px;
-    margin-top: 28px;
+    padding: 0 16px;
+    margin-top: 18px;
     .page-title { font-size: 1.9rem; }
   }
-  .wrap-content { padding: 8px 20px 28px; }
-  .blog-tags { padding: 26px 18px; }
+  .wrap-content { padding: 8px 18px 26px; }
+  .wrap-content table { display: block; overflow-x: auto; }
+  .blog-tags { padding: 22px 16px; }
+
+  /* Keep the About tab bar below the sticky top bar */
+  .about-tabs { top: 64px; }
 
   .contact .contact-title::before,
   .contact .contact-title::after { display: none; }
-
-  /* Sidebar is in-flow on mobile: collapse by removing it entirely */
-  html.sidebar-collapsed {
-    .sidebar { display: none; }
-    .content-box { padding-top: 62px; padding-left: 16px; }
-  }
 }
 
 /* Extra Small Devices, Phones */
@@ -74,5 +148,13 @@
   body { font-size: 16px; }
   .content-box { padding: 18px 12px; }
   .post { margin-bottom: 1.2rem; }
-  .page-footer { flex-direction: column; align-items: flex-start; }
+  .page-footer { flex-direction: column; align-items: flex-start; gap: 12px; }
+
+  .gallery-head h1 { font-size: 1.9rem; }
+  .album-hero__text h1 { font-size: 1.8rem; }
+  .header-page .page-title { font-size: 1.7rem; }
+  .about-hero__name { font-size: 2rem; }
+
+  /* Comfortable tap targets for the social icons */
+  .contact ul li a { width: 40px; height: 40px; }
 }
