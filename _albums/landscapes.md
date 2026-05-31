@@ -5,7 +5,7 @@ location: Switzerland
 date: '2024-07-22'
 cover: gallery/landscape-leman.jpeg
 photos:
-- image: assets/img/gallery/landscape-lac-gruyère.jpeg
+- image: assets/img/gallery/landscape-lac-gruyere.jpeg
   caption: Petit tour du magnifique lac de la Gruyère
 - image: assets/img/gallery/landscape-dry-lake.JPG
   caption: Contraste entre le lit du Lac de la Gruyère asséché, de la verdure et du
