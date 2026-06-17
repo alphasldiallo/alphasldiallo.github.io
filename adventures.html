@@ -4,7 +4,7 @@ layout: main
 permalink: "/gallery/"
 ---
 
-{% assign albums = site.albums | sort: 'date' | reverse %}
+{% assign albums = site.albums | sort: 'title' %}
 
 <section class="gallery">
   <header class="gallery-head">
